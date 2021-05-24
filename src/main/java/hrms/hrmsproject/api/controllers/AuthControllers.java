@@ -21,10 +21,10 @@ public class AuthControllers {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
-    public Result login(@RequestBody UserLoginDto userLoginDto) {
-        return authService.Login(userLoginDto);
-    }
+//    @PostMapping("/login")
+//    public Result login(@RequestBody UserLoginDto userLoginDto) {
+//        return authService.Login(userLoginDto);
+//    }
 
     @PostMapping("/registerforemployer")
     public Result registerForEmployer(@RequestBody RegisterEmployerDto registerForEmployerDto) {
