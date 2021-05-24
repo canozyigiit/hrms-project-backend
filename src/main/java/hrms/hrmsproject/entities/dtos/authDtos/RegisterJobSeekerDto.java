@@ -10,7 +10,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode
-@ToString
 public class RegisterJobSeekerDto {
     private String firstName;
     private String lastName;

@@ -9,7 +9,6 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode
-@ToString
 public class RegisterEmployerDto implements Dto {
 
     private String companyName;
