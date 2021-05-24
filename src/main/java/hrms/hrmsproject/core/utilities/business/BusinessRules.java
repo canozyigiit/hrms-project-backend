@@ -1,4 +1,4 @@
-package hrms.hrmsproject.core.business;
+package hrms.hrmsproject.core.utilities.business;
 
 import hrms.hrmsproject.core.utilities.results.Result;
 

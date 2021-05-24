@@ -3,7 +3,7 @@ package hrms.hrmsproject.business.concrete;
 
 import hrms.hrmsproject.business.abstracts.EmployerService;
 import hrms.hrmsproject.business.constans.Messages;
-import hrms.hrmsproject.core.business.BusinessRules;
+import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.EmployerDao;
 import hrms.hrmsproject.entities.concretes.Employer;
@@ -25,11 +25,11 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result add(Employer employer) {
-//        Result result = BusinessRules.Run(checkIfEmployerDomain(employer), checkIfEmployerEmailExists(employer),
-//                employerEmailValid(employer.getEmail(), employer.getCompanyName()));
-//        if (result != null) {
-//            return result;
-//        }
+        Result result = BusinessRules.Run(checkIfEmployerDomain(employer), checkIfEmployerEmailExists(employer),
+                employerEmailValid(employer.getEmail(), employer.getCompanyName()));
+        if (result != null) {
+            return result;
+        }
         this.employerDao.save(employer);
         return new SuccessResult(Messages.employerAdded);
 
