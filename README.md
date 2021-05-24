@@ -23,7 +23,7 @@ Sisteme genel iş pozisyonu  eklenebilir, bu pozisyonlar tekrar edilmez.**
 ![datebaseTables](https://github.com/canozyigiit/HrmsProject/blob/master/HrmsDB.png)
 
 ## License <img src="https://img.icons8.com/doodle/24/000000/document.png"/>
-This project is licensed under the MIT License - see the [License](https://github.com/canozyigiit/hrms/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [License](https://github.com/canozyigiit/HrmsProject-Backend/blob/master/LICENSE) file for details
 
 ##  <img src=https://github.com/canozyigiit/canozyigiit/blob/main/web-development%20.png> Developer : 
 **- Can Özyiğit**
