@@ -41,6 +41,11 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public DataResult<User> getByEmail(String email) {
+        return new SuccessDataResult<User>(userDao.findByEmail(email));
+    }
+
+    @Override
     public Result delete(User user) {
         this.userDao.delete(user);
         return new SuccessResult(Messages.userDeleted);

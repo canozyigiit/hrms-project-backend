@@ -29,6 +29,11 @@ public class JobSeeker extends User {
     private Date dateOfBirth;
 
 
-
-
+    public JobSeeker(int id, String email, String password, String firstName, String lastName, String nationalityId, Date dateOfBirth) {
+        super(id,email,password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalityId = nationalityId;
+        this.dateOfBirth = dateOfBirth;
+    }
 }
