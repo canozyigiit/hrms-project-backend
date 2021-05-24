@@ -1,9 +1,6 @@
 ## HrmsProject - Backend ![image](https://user-images.githubusercontent.com/74922674/118663955-c41e6c80-b7f9-11eb-9b39-735ddd400187.png) 
 
 
-**“HRMS” İnsan Kaynakları Yönetim Sistemi anlamına gelir(Human resource management system). Kuruluşların şirket içi İK faaliyetlerini yönetmek için kullandıkları bir yazılım ürün setini ifade eder. İK Yönetim Sistemi yazılımı, İK uzmanlarının çalışan verilerinin yönetiminden bordro, işe alım, yan haklar, eğitim, yetenek yönetimi, çalışan etkileşimi ve çalışan katılımına kadar modern iş gücünü yönetmesine yardımcı olur. İnsan kaynakları bilgi sistemi (HRIS) olarak da adlandırılan İK Yönetim Sistemi sistemleri, bir şirketin en değerli varlıkları hakkındaki bilgileri, bu bilgilere ihtiyacı olan kişilerin önüne getirir. 
-Çoğu ortamda, bir HRMS entegre edilmiştir ve zaman izleme, katılım, finans / hesaplar ve yönetim gibi diğer destek sistemleri ile bağlantılıdır.**
-
 
 
  
