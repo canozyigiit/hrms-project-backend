@@ -3,12 +3,11 @@ package hrms.hrmsproject.business.concrete;
 
 import hrms.hrmsproject.business.abstracts.JobPositionService;
 import hrms.hrmsproject.business.constans.Messages;
-import hrms.hrmsproject.core.utilities.results.DataResult;
-import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.core.utilities.results.SuccessDataResult;
-import hrms.hrmsproject.core.utilities.results.SuccessResult;
+import hrms.hrmsproject.core.utilities.business.BusinessRules;
+import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.JobPositionDao;
-import hrms.hrmsproject.entities.concretes.JobPositon;
+import hrms.hrmsproject.entities.concretes.Employer;
+import hrms.hrmsproject.entities.concretes.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,25 +23,36 @@ public class JobPositionManager implements JobPositionService {
     }
 
     @Override
-    public Result add(JobPositon jobPositon) {
-        jobPositionDao.save(jobPositon);
+    public Result add(JobPosition jobPosition) {
+        Result result = BusinessRules.Run(checkIfJobPositonNameExists(jobPosition));
+        if (result != null) {
+            return result;
+        }
+        jobPositionDao.save(jobPosition);
         return new SuccessResult(Messages.jobPositionAdded);
     }
 
     @Override
-    public DataResult<List<JobPositon>> getAll() {
-        return new SuccessDataResult<List<JobPositon>>(this.jobPositionDao.findAll(), Messages.jobPositionGetAll);
+    public DataResult<List<JobPosition>> getAll() {
+        return new SuccessDataResult<List<JobPosition>>(this.jobPositionDao.findAll(), Messages.jobPositionGetAll);
     }
 
     @Override
-    public DataResult<JobPositon> getById(int id) {
-        return new SuccessDataResult<JobPositon>(this.jobPositionDao.findById(id).orElse(null), Messages.jobPositionGet);
+    public DataResult<JobPosition> getById(int id) {
+        return new SuccessDataResult<JobPosition>(this.jobPositionDao.findById(id).orElse(null), Messages.jobPositionGet);
     }
 
     @Override
-    public Result delete(JobPositon jobPositon) {
-        jobPositionDao.delete(jobPositon);
+    public Result delete(JobPosition jobPosition) {
+        jobPositionDao.delete(jobPosition);
         return new SuccessResult(Messages.jobPositionDeleted);
+    }
+    private Result checkIfJobPositonNameExists(JobPosition jobPosition) {
+        var result = jobPositionDao.findAllByName(jobPosition.getName()).stream().count()!=0;
+        if (result) {
+            return new ErrorResult(Messages.jobPositionExists);
+        }
+        return new SuccessResult();
     }
 
 }

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @PrimaryKeyJoinColumn(name = "id")
 @Table(name = "job_positions")
 
-public class JobPositon {
+public class JobPosition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

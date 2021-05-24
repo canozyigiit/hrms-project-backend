@@ -1,8 +1,12 @@
 package hrms.hrmsproject.dataAccess.abstracts;
 
 
-import hrms.hrmsproject.entities.concretes.JobPositon;
+import hrms.hrmsproject.entities.concretes.Employer;
+import hrms.hrmsproject.entities.concretes.JobPosition;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JobPositionDao extends JpaRepository<JobPositon,Integer> {
+import java.util.List;
+
+public interface JobPositionDao extends JpaRepository<JobPosition,Integer> {
+    List<JobPosition> findAllByName(String name);
 }

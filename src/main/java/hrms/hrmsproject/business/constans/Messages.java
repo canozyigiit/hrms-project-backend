@@ -19,6 +19,7 @@ public class Messages {
     public static String jobPositionGetAll = "Job Position Listed";
     public static String jobPositionGet = "Job Position Found";
     public static String jobPositionDeleted = "Job Position Deteled";
+    public static String jobPositionExists = "Job position with this name already exists";
 
     //JobSeeker
     public static String jobSekeerAdded = "Job Sekeer Added";
@@ -36,7 +37,7 @@ public class Messages {
     public static String userGet = "User Found";
     public static String userDeleted = "User Deteled";
     public static String UserNotFound = "User not found";
-    public static String mailVerification="Verification has been sent to the mail";
+    public static String mailVerification = "Verification has been sent to the mail";
 
     //SystemPersonnel
     public static String systemPersonnelAdded = "System Personnel Added";
@@ -55,5 +56,6 @@ public class Messages {
     public static String SuccessfulLogin = "Logged in";
     public static String UserAlreadyExists = "This user already exists";
     public static String PasswordError = "Password Error!";
+
 
 }
