@@ -19,6 +19,8 @@ public class Messages {
     public static String jobPositionGetAll = "Job Position Listed";
     public static String jobPositionGet = "Job Position Found";
     public static String jobPositionDeleted = "Job Position Deteled";
+    public static String jobPositionNameLengthError = "Job position name must be longer than 3 characters";
+
     public static String jobPositionExists = "Job position with this name already exists";
 
     //JobSeeker
@@ -58,5 +60,4 @@ public class Messages {
     public static String PasswordError = "Password Error!";
 
 
-    public static String jobPositionNameLengthError ="Job position name must be longer than 3 characters";
 }
