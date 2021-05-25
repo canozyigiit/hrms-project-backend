@@ -1,7 +1,5 @@
 ## HrmsProject - Backend ![image](https://user-images.githubusercontent.com/74922674/118663955-c41e6c80-b7f9-11eb-9b39-735ddd400187.png) 
-
-
-
+   **Human Resource Management System**
 
  
 ## Built With 🛠️	
