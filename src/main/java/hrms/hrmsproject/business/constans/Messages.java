@@ -7,12 +7,9 @@ public class Messages {
     public static String employerGetAll = "Employers Listed";
     public static String employerGet = "Employer Found";
     public static String employerDeleted = "Employer Deteled";
-
     public static String employerEmailExists = "There is already an employer with this email";
-
     public static String employerDomainCheck = "Domain cannot be left blank";
     public static String errorEmployerEmail = "The employer email is invalid";
-
 
     //JobPosition
     public static String jobPositionAdded = "Job Position Added";
@@ -33,8 +30,6 @@ public class Messages {
     public static String jobSeekerDomainCheck = "Domain cannot be left blank";
     public static String notRealPerson = "Not a real user information";
 
-
-
     //User
     public static String userAdded = "User Added";
     public static String userGetAll = "User Listed";
@@ -50,7 +45,6 @@ public class Messages {
     public static String systemPersonnelDeleted = "System Personnel Deteled";
 
     //Auth
-
     public static String successfulLogin = "Login to the system is successful.";
     public static String userAlreadyExists = "This user already exists.";
     public static String userRegistered = "Registration is complete.";
