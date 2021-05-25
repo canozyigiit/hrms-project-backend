@@ -63,10 +63,10 @@ public class AuthManager implements AuthService {
     public Result Login(UserLoginDto userLoginDto) {
         var userToCheck = userService.getByEmail(userLoginDto.getEmail());
         if (userToCheck.getData() == null) {
-            return new ErrorDataResult<User>(Messages.UserNotFound);
+            return new ErrorDataResult<User>(Messages.userNotFound);
         }
         //Düzenlenecek if(Şifre kontrolü){}
-        return new SuccessDataResult<User>(userToCheck.getData(), Messages.SuccessfulLogin);
+        return new SuccessDataResult<User>(userToCheck.getData(), Messages.successfulLogin);
     }
 
 

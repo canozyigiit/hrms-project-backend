@@ -30,7 +30,9 @@ public class Messages {
     public static String jobSekeerDeleted = "Job Sekeer Deteled";
     public static String errorjobSeekerEmail = "The job seeker email is invalid";
     public static String jobSeekerEmailExists = "There is already an job seeker with this email";
+    public static String jobSeekerDomainCheck = "Domain cannot be left blank";
     public static String notRealPerson = "Not a real user information";
+
 
 
     //User
@@ -38,7 +40,7 @@ public class Messages {
     public static String userGetAll = "User Listed";
     public static String userGet = "User Found";
     public static String userDeleted = "User Deteled";
-    public static String UserNotFound = "User not found";
+    public static String userNotFound = "User not found";
     public static String mailVerification = "Verification has been sent to the mail";
 
     //SystemPersonnel
@@ -50,14 +52,11 @@ public class Messages {
     //Auth
 
     public static String successfulLogin = "Login to the system is successful.";
-
     public static String userAlreadyExists = "This user already exists.";
     public static String userRegistered = "Registration is complete.";
+    public static String successfullLogin = "Logged in";
+    public static String passwordError = "Password Error!";
 
-
-    public static String SuccessfulLogin = "Logged in";
-    public static String UserAlreadyExists = "This user already exists";
-    public static String PasswordError = "Password Error!";
 
 
 }

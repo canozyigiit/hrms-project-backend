@@ -78,7 +78,7 @@ public class JobSeekerManager implements JobSeekerService {
     private Result checkIfJobSeekerDomain(JobSeeker jobSeeker) {
         if (jobSeeker.getEmail() == null && jobSeeker.getPassword() == null && jobSeeker.getFirstName() == null
                 && jobSeeker.getLastName() == null && jobSeeker.getDateOfBirth() == null && jobSeeker.getNationalityId() == null) {
-            return new ErrorResult(Messages.employerDomainCheck);
+            return new ErrorResult(Messages.jobSeekerDomainCheck);
         }
         return new SuccessResult();
     }
