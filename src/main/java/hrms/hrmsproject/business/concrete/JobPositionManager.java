@@ -6,7 +6,6 @@ import hrms.hrmsproject.business.constans.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.JobPositionDao;
-import hrms.hrmsproject.entities.concretes.Employer;
 import hrms.hrmsproject.entities.concretes.JobPosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class JobPositionManager implements JobPositionService {
 
     @Override
     public Result add(JobPosition jobPosition) {
-        Result result = BusinessRules.Run(checkIfJobPositonNameExists(jobPosition));
+        Result result = BusinessRules.Run(checkIfJobPositonNameExists(jobPosition),checkIfJobPositionNameLength(jobPosition));
         if (result != null) {
             return result;
         }
@@ -51,6 +50,12 @@ public class JobPositionManager implements JobPositionService {
         var result = jobPositionDao.findAllByName(jobPosition.getName()).stream().count()!=0;
         if (result) {
             return new ErrorResult(Messages.jobPositionExists);
+        }
+        return new SuccessResult();
+    }
+    private Result checkIfJobPositionNameLength(JobPosition jobPosition){
+        if (jobPosition.getName().length()<3){
+            return new ErrorResult(Messages.jobPositionNameLengthError);
         }
         return new SuccessResult();
     }

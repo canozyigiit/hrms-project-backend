@@ -58,4 +58,5 @@ public class Messages {
     public static String PasswordError = "Password Error!";
 
 
+    public static String jobPositionNameLengthError ="Job position name must be longer than 3 characters";
 }
