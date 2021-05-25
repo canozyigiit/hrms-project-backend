@@ -16,30 +16,22 @@ import javax.persistence.Table;
 @Table(name = "employers")
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "user_id",referencedColumnName="id")
 public class Employer extends User {
 
     @Column(name = "company_name")
     private String companyName;
 
-    @Column(name = "web_site")
+    @Column(name = "website")
     private String webSite;
 
     @Column(name = "phone")
     private String phone;
 
-    public Employer(
-            int id,
-            String email,
-            String password,
-            String companyName,
-            String webSite,
-            String phone) {
-        super(id, email, password);
-        this.companyName = companyName;
-        this.webSite = webSite;
-        this.phone = phone;
-    }
+    @Column(name = "is_verified", columnDefinition = "boolean default false")
+    private boolean isVerified = false;
+
+
 
 
 }
