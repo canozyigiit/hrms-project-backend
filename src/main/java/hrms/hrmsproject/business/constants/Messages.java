@@ -1,4 +1,4 @@
-package hrms.hrmsproject.business.constans;
+package hrms.hrmsproject.business.constants;
 
 public class Messages {
 

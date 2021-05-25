@@ -1,7 +1,7 @@
 package hrms.hrmsproject.business.concrete;
 
 import hrms.hrmsproject.business.abstracts.MailService;
-import hrms.hrmsproject.business.constans.Messages;
+import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.core.utilities.results.SuccessResult;
 import org.springframework.stereotype.Service;

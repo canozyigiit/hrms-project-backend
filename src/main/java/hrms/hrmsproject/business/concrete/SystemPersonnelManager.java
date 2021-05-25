@@ -2,7 +2,7 @@ package hrms.hrmsproject.business.concrete;
 
 
 import hrms.hrmsproject.business.abstracts.SystemPersonnelService;
-import hrms.hrmsproject.business.constans.Messages;
+import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.core.utilities.results.SuccessDataResult;

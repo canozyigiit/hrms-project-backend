@@ -2,7 +2,7 @@ package hrms.hrmsproject.business.concrete;
 
 
 import hrms.hrmsproject.business.abstracts.EmployerService;
-import hrms.hrmsproject.business.constans.Messages;
+import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.EmployerDao;
