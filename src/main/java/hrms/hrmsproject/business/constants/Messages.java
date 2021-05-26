@@ -8,8 +8,8 @@ public class Messages {
     public static String employerGet = "Employer Found";
     public static String employerDeleted = "Employer Deteled";
     public static String employerEmailExists = "There is already an employer with this email";
-    public static String employerDomainCheck = "Domain cannot be left blank";
-    public static String errorEmployerEmail = "The employer email is invalid";
+    public static String employerFieldCheck = "All fields are required";
+    public static String errorEmployerEmail = "Your e-mail address is not corporate";
 
     //JobPosition
     public static String jobPositionAdded = "Job Position Added";
@@ -26,7 +26,9 @@ public class Messages {
     public static String jobSekeerDeleted = "Job Sekeer Deteled";
     public static String errorjobSeekerEmail = "The job seeker email is invalid";
     public static String jobSeekerEmailExists = "There is already an job seeker with this email";
-    public static String jobSeekerDomainCheck = "Domain cannot be left blank";
+    public static String jobSeekerFieldCheck = "All fields are required";
+    public static String jobSeekerNationalIdExists = " The user with this national ID already exists";
+
     public static String notRealPerson = "Not a real user information";
 
     //User
@@ -44,12 +46,10 @@ public class Messages {
     public static String systemPersonnelDeleted = "System Personnel Deteled";
 
     //Auth
-    public static String successfulLogin = "Login to the system is successful.";
+    public static String successFullLogin = "Login to the system is successful.";
     public static String userAlreadyExists = "This user already exists.";
     public static String userRegistered = "Registration is complete.";
-    public static String successfullLogin = "Logged in";
     public static String passwordError = "Password Error!";
-
 
 
 }

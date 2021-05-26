@@ -26,14 +26,15 @@ public class JobSeekerManager implements JobSeekerService {
 
     @Override
     public Result add(JobSeeker jobSeeker) {
-        Result result = BusinessRules.Run(checkIfJobSeekerEmailExists(jobSeeker), checkIfJobSeekerDomain(jobSeeker),
-                jobSeekerEmailValid(jobSeeker.getEmail()));
+        Result result = BusinessRules.Run(checkIfJobSeekerEmailExists(jobSeeker),checkIfJobSeekerNationalIdExists(jobSeeker),
+                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()));
         if (result != null) {
             return result;
-        } else if (!mernisService.checkIfRealPerson(jobSeeker.getNationalityId(), jobSeeker.getFirstName(),
-                jobSeeker.getLastName(), jobSeeker.getDateOfBirth())) {
-            return new ErrorResult(Messages.notRealPerson);
         }
+//        else if (!mernisService.checkIfRealPerson(jobSeeker.getNationalityId(), jobSeeker.getFirstName(),
+//                jobSeeker.getLastName(), jobSeeker.getDateOfBirth())) {
+//            return new ErrorResult(Messages.notRealPerson);
+//        }
         this.jobSeekerDao.save(jobSeeker);
         return new SuccessResult(Messages.jobSekeerAdded);
     }
@@ -54,7 +55,7 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessResult(Messages.jobSekeerDeleted);
     }
 
-    private Result jobSeekerEmailValid(String email) {
+    private Result checkIfJobSeekerEmailValid(String email) {
         Pattern validEmail =
                 Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
                         Pattern.CASE_INSENSITIVE);
@@ -75,10 +76,18 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessResult();
     }
 
-    private Result checkIfJobSeekerDomain(JobSeeker jobSeeker) {
+    private Result checkIfJobSeekerNationalIdExists(JobSeeker jobSeeker) {
+        var result = jobSeekerDao.findAllByNationalityId(jobSeeker.getNationalityId()).stream().count() != 0;
+        if (result) {
+            return new ErrorResult(Messages.jobSeekerNationalIdExists);
+        }
+        return new SuccessResult();
+    }
+
+    private Result checkJobSeekerFields(JobSeeker jobSeeker) {
         if (jobSeeker.getEmail() == null && jobSeeker.getPassword() == null && jobSeeker.getFirstName() == null
                 && jobSeeker.getLastName() == null && jobSeeker.getDateOfBirth() == null && jobSeeker.getNationalityId() == null) {
-            return new ErrorResult(Messages.jobSeekerDomainCheck);
+            return new ErrorResult(Messages.jobSeekerFieldCheck);
         }
         return new SuccessResult();
     }

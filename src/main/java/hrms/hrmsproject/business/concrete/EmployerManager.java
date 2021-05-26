@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class EmployerManager implements EmployerService {
@@ -25,8 +23,8 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result add(Employer employer) {
-        Result result = BusinessRules.Run(checkIfEmployerDomain(employer), checkIfEmployerEmailExists(employer),
-                employerEmailValid(employer.getEmail(), employer.getCompanyName()));
+        Result result = BusinessRules.Run(checkIfEmployerFields(employer), checkIfEmployerEmailExists(employer),
+                checkEmailIsCompatibleWithDomain(employer.getEmail(),employer.getCompanyName()));
         if (result != null) {
             return result;
         }
@@ -60,21 +58,34 @@ public class EmployerManager implements EmployerService {
         return new SuccessResult();
     }
 
-    private Result checkIfEmployerDomain(Employer employer) {
-        if (employer.getEmail() == null && employer.getCompanyName() ==
-                null && employer.getPassword() == null && employer.getWebSite() == null && employer.getEmail() == null && employer.getPassword() == null) {
-            return new ErrorResult(Messages.employerDomainCheck);
+
+
+    private Result checkIfEmployerFields(Employer employer) {
+        if (employer.getEmail() == "" && employer.getCompanyName() == ""
+                && employer.getPassword() == "" && employer.getWebSite() == "" && employer.getEmail() == "" && employer.getPassword() == "") {
+            return new ErrorResult(Messages.employerFieldCheck);
         }
         return new SuccessResult();
     }
 
-    private Result employerEmailValid(String email, String companyName) {
-        Pattern validEmail =
-                Pattern.compile("^[A-Z0-9._%+-]+@[" + companyName + "]+\\.[A-Z]{2,6}$",
-                        Pattern.CASE_INSENSITIVE);
+//    private Result employerEmailValid(String email, String companyName) {
+//        Pattern validEmail =
+//                Pattern.compile("^[A-Z0-9._%+-]+@[" + companyName + "]+\\.[A-Z]{2,6}$",
+//                        Pattern.CASE_INSENSITIVE);
+//
+//        Matcher matcher = validEmail.matcher(email);
+//        if (!matcher.matches()) {
+//            return new ErrorResult(Messages.errorEmployerEmail);
+//        }
+//
+//        return new SuccessResult();
+//    }
+    private Result checkEmailIsCompatibleWithDomain(String email, String companyName){
 
-        Matcher matcher = validEmail.matcher(email);
-        if (!matcher.matches()) {
+        String[] isEmailCompatible = email.split("@", 2);
+        String webSite = companyName.substring(4);
+
+        if (!isEmailCompatible[1].equals(webSite)){
             return new ErrorResult(Messages.errorEmployerEmail);
         }
 

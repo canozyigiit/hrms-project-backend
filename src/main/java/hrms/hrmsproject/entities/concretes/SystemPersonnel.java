@@ -16,7 +16,8 @@ import javax.persistence.Table;
 @Table(name = "system_personnels")
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "user_id",referencedColumnName="id")
+@EqualsAndHashCode(callSuper = false)
+@PrimaryKeyJoinColumn(name = "user_id")
 public class SystemPersonnel extends User {
 
     @Column(name = "first_name")

@@ -3,6 +3,7 @@ package hrms.hrmsproject.entities.concretes;
 import hrms.hrmsproject.core.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -10,14 +11,14 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @Entity
+@Table(name = "job_seekers")
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "user_id",referencedColumnName="id")
-@Table(name = "job_seekers")
+@EqualsAndHashCode(callSuper = false)
+@PrimaryKeyJoinColumn(name = "user_id")
 public class JobSeeker extends User {
 
 

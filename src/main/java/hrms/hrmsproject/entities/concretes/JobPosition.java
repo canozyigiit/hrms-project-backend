@@ -11,9 +11,7 @@ import java.time.LocalDate;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "id")
 @Table(name = "job_positions")
-
 public class JobPosition {
 
     @Id

@@ -16,7 +16,8 @@ import javax.persistence.Table;
 @Table(name = "employers")
 @AllArgsConstructor
 @NoArgsConstructor
-@PrimaryKeyJoinColumn(name = "user_id",referencedColumnName="id")
+@EqualsAndHashCode(callSuper = false)
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Employer extends User {
 
     @Column(name = "company_name")
@@ -28,7 +29,7 @@ public class Employer extends User {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "is_verified", columnDefinition = "boolean default false")
+    @Column(name = "is_verified")
     private boolean isVerified = false;
 
 
