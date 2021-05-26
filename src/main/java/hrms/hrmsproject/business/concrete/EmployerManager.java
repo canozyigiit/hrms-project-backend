@@ -72,7 +72,7 @@ public class EmployerManager implements EmployerService {
 
     private Result checkIfEmployerEmailValid(String email) {
         Pattern validEmail =
-                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",//Doğru düzgün eposta istiyor
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
                         Pattern.CASE_INSENSITIVE);
 
         Matcher matcher = validEmail.matcher(email);
@@ -87,10 +87,10 @@ public class EmployerManager implements EmployerService {
         String[] isEmailCompatible = email.split("@", 2);//İkiye bölüyor  öncesi@sonrası
         String webSite = companyName.substring(4);//www. den sonrası
 
-        if (!isEmailCompatible[1].equals(webSite)){//Kurumsal eposta mı?
+        if (!isEmailCompatible[1].equals(webSite)){
             return new ErrorResult(Messages.errorEmployerEmail);
         }
 
         return new SuccessResult();
-    }
+    }//Kurumsal eposta mı?
 }
