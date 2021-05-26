@@ -89,7 +89,7 @@ public class AuthManager implements AuthService {
         }
 
         return new SuccessResult();
-    }
+    }//Parolalar uyuşuyor mu?
 
     private Result checkNullFields(AuthRegisterDto authRegisterDto) {
 
@@ -97,7 +97,7 @@ public class AuthManager implements AuthService {
             return new ErrorResult(Messages.authFieldsError);
         }
         return new SuccessResult();
-    }
+    }//Şifreler boş kalmasın
 
 }
 
