@@ -9,11 +9,10 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode
-public class RegisterJobSeekerDto {
+public class RegisterJobSeekerDto extends AuthDto{
     private String firstName;
     private String lastName;
-    private String nationalityId;
+    private String nationalId;
     private Date dateOfBirth;
     private String email;
     private String password;

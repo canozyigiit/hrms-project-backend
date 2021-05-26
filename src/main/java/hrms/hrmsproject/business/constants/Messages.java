@@ -37,7 +37,7 @@ public class Messages {
     public static String userGet = "User Found";
     public static String userDeleted = "User Deteled";
     public static String userNotFound = "User not found";
-    public static String mailVerification = "Verification has been sent to the mail";
+
 
     //SystemPersonnel
     public static String systemPersonnelAdded = "System Personnel Added";
@@ -50,6 +50,9 @@ public class Messages {
     public static String userAlreadyExists = "This user already exists.";
     public static String userRegistered = "Registration is complete.";
     public static String passwordError = "Password Error!";
+    public static String passwordConfirmError = "Passwords do not match.";
+    public static String authFieldsError = "All fields are required";
+    public static String mailVerification = "Verification has been sent to the mail :";
 
 
 }

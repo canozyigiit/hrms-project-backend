@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class MailManager implements MailService {
     @Override
     public Result send(String email) {
-        return new SuccessResult(Messages.mailVerification);
+        return new SuccessResult(Messages.mailVerification + email);
     }
 }

@@ -8,13 +8,13 @@ import lombok.ToString;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode
-public class RegisterEmployerDto implements Dto {
+public class RegisterEmployerDto extends AuthDto {
 
     private String companyName;
     private String website;
     private String phone;
     private String email;
     private String password;
+
 
 }
