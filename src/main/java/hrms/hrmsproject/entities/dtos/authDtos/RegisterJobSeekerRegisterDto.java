@@ -12,7 +12,6 @@ public class RegisterJobSeekerRegisterDto extends AuthRegisterDto {
     private String lastName;
     private String nationalId;
     private Date dateOfBirth;
-    private String email;
     private String password;
 
 }

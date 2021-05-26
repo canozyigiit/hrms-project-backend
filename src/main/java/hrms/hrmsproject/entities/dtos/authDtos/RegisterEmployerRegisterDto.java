@@ -10,7 +10,6 @@ public class RegisterEmployerRegisterDto extends AuthRegisterDto {
     private String companyName;
     private String website;
     private String phone;
-    private String email;
     private String password;
 
 
