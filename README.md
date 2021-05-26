@@ -15,7 +15,7 @@
 İş arayanlar sisteme kimlik bilgiler ile kayıt olup Mernis doğrulamasından geçer , iş verenler ise şirket bilgileri ile kayıt olup bir yetkili kişi(sistem personeli) tarafından doğrulanır. Her iki taraf için de email doğrulaması gerekir. Daha önce kayıtlı bir e-posta veya tcno var ise kayıt gerçekleşmez, kullanıcı bilgilendirilir.
 Sisteme genel iş pozisyonu  eklenebilir, bu pozisyonlar tekrar edilmez.**
 
-![datebaseTables](https://github.com/canozyigiit/HrmsProject-Backend/blob/master/hrms.png)
+![datebaseTables](https://github.com/canozyigiit/HrmsProject-Backend/blob/master/HrmsDB.png)
 
 ## License <img src="https://img.icons8.com/doodle/24/000000/document.png"/>
 This project is licensed under the MIT License - see the [License](https://github.com/canozyigiit/HrmsProject-Backend/blob/master/LICENSE) file for details
