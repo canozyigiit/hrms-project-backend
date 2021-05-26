@@ -87,7 +87,7 @@ public class EmployerManager implements EmployerService {
         String[] isEmailCompatible = email.split("@", 2);//İkiye bölüyor  öncesi@sonrası
         String webSite = companyName.substring(4);//www. den sonrası
 
-        if (!isEmailCompatible[1].equals(webSite)){//Kurumsal eposta mı?
+        if (!isEmailCompatible[1].equals(webSite)){
             return new ErrorResult(Messages.errorEmployerEmail);
         }
 

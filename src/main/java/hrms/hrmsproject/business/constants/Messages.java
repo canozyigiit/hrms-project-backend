@@ -28,6 +28,7 @@ public class Messages {
     public static String jobSeekerEmailExists = "There is already an job seeker with this email";
     public static String jobSeekerFieldCheck = "All fields are required";
     public static String jobSeekerNationalIdExists = " The user with this national ID already exists";
+    public static String nationalIdLengthError = "National ID must be 11 digits";
     public static String notRealPerson = "Not a real user information";
 
     //User

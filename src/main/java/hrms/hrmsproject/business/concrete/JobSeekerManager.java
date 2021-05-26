@@ -27,7 +27,7 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public Result add(JobSeeker jobSeeker) {
         Result result = BusinessRules.Run(checkIfJobSeekerEmailExists(jobSeeker),checkIfJobSeekerNationalIdExists(jobSeeker),
-                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()));
+                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()),nationalIdLengthControl(jobSeeker));
         if (result != null) {
             return result;
         }
@@ -72,6 +72,13 @@ public class JobSeekerManager implements JobSeekerService {
         var result = jobSeekerDao.findAllByEmail(jobSeeker.getEmail()).stream().count() != 0;
         if (result) {
             return new ErrorResult(Messages.jobSeekerEmailExists);
+        }
+        return new SuccessResult();
+    }
+    private Result nationalIdLengthControl(JobSeeker jobSeeker) {
+
+        if (jobSeeker.getNationalityId().length() != 11) {
+            return new ErrorResult(Messages.nationalIdLengthError);
         }
         return new SuccessResult();
     }
