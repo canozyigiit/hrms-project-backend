@@ -1,10 +1,9 @@
-package hrms.hrmsproject.core.adapters;
+package hrms.hrmsproject.adapters;
 
 import Mernis.DAGKPSPublicSoap;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Component
 public class MernisService implements UserCheckService{

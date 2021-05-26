@@ -2,7 +2,7 @@ package hrms.hrmsproject.business.concrete;
 
 import hrms.hrmsproject.business.abstracts.JobSeekerService;
 import hrms.hrmsproject.business.constants.Messages;
-import hrms.hrmsproject.core.adapters.MernisService;
+import hrms.hrmsproject.adapters.MernisService;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.JobSeekerDao;
