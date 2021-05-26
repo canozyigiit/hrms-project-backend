@@ -85,8 +85,8 @@ public class JobSeekerManager implements JobSeekerService {
     }
 
     private Result checkJobSeekerFields(JobSeeker jobSeeker) {
-        if (jobSeeker.getEmail() == null && jobSeeker.getPassword() == null && jobSeeker.getFirstName() == null
-                && jobSeeker.getLastName() == null && jobSeeker.getDateOfBirth() == null && jobSeeker.getNationalityId() == null) {
+        if (jobSeeker.getEmail() == null || jobSeeker.getPassword() == null || jobSeeker.getFirstName() == null
+                || jobSeeker.getLastName() == null || jobSeeker.getDateOfBirth() == null || jobSeeker.getNationalityId() == null) {
             return new ErrorResult(Messages.jobSeekerFieldCheck);
         }
         return new SuccessResult();

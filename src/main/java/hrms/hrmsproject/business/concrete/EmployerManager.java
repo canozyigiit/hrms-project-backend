@@ -61,8 +61,8 @@ public class EmployerManager implements EmployerService {
 
 
     private Result checkIfEmployerFields(Employer employer) {
-        if (employer.getEmail() == "" && employer.getCompanyName() == ""
-                && employer.getPassword() == "" && employer.getWebSite() == "" && employer.getEmail() == "" && employer.getPassword() == "") {
+        if (employer.getEmail() == "" || employer.getCompanyName() == "" ||
+                employer.getPassword() == "" || employer.getWebSite() == "" || employer.getEmail() == "" || employer.getPassword() == "") {
             return new ErrorResult(Messages.employerFieldCheck);
         }
         return new SuccessResult();
