@@ -22,7 +22,7 @@ public class JobPosition {
     @Column(name = "name")
     private String name;
 
-    @Column(name= "created_at")
+    @Column(name= "created_date")
     private LocalDate createdDate = LocalDate.now();
 
     @Column(name= "is_active")

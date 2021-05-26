@@ -26,7 +26,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "created_at")
+    @Column(name = "created_date")
     private LocalDate createdAt = LocalDate.now();
 
     @Column(name = "is_active")
