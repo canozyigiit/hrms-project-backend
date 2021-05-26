@@ -58,7 +58,7 @@ public class EmployerManager implements EmployerService {
             return new ErrorResult(Messages.employerEmailExists);
         }
         return new SuccessResult();
-    }
+    }//Böyle email daha önce kullanılmış mı ?
 
 
 
@@ -68,7 +68,7 @@ public class EmployerManager implements EmployerService {
             return new ErrorResult(Messages.employerFieldCheck);
         }
         return new SuccessResult();
-    }
+    }//Boş alan kontrolü
 
     private Result checkIfEmployerEmailValid(String email) {
         Pattern validEmail =
@@ -87,7 +87,7 @@ public class EmployerManager implements EmployerService {
         String[] isEmailCompatible = email.split("@", 2);//İkiye bölüyor  öncesi@sonrası
         String webSite = companyName.substring(4);//www. den sonrası
 
-        if (!isEmailCompatible[1].equals(webSite)){
+        if (!isEmailCompatible[1].equals(webSite)){//Kurumsal eposta mı?
             return new ErrorResult(Messages.errorEmployerEmail);
         }
 
