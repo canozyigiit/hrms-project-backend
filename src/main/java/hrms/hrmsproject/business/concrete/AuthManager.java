@@ -49,7 +49,10 @@ public class AuthManager implements AuthService {
     @Override
     public Result registerForJobSeeker(RegisterJobSeekerDto registerJobSeekerDto) {
         Result result = BusinessRules.Run(checkPasswordConfirm(registerJobSeekerDto.getPassword(), registerJobSeekerDto.getPasswordConfirm()),
-                this.UserExists(registerJobSeekerDto.getEmail()),checkNullFields(registerJobSeekerDto));
+                this.UserExists(registerJobSeekerDto.getEmail()), checkNullFields(registerJobSeekerDto));
+        if (result != null) {
+            return result;
+        }
         JobSeeker jobSeeker = modelMapper.map(registerJobSeekerDto, JobSeeker.class);
         mailService.send(jobSeeker.getEmail());
         jobSeekerService.add(jobSeeker);
