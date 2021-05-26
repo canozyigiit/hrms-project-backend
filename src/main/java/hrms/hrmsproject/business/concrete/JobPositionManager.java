@@ -61,6 +61,6 @@ public class JobPositionManager implements JobPositionService {
             return new ErrorResult(Messages.jobPositionNameLengthError);
         }
         return new SuccessResult();
-    }Pozisyon ismi 3 karakterden uzun olsun(test amaçlı)
+    }//Pozisyon ismi 3 karakterden uzun olsun(test amaçlı)
 
 }
