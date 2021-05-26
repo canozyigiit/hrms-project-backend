@@ -98,7 +98,7 @@ public class JobSeekerManager implements JobSeekerService {
             return new ErrorResult(Messages.nationalIdLengthError);
         }
         return new SuccessResult();
-    }
+    }//11 karakter olmalı Tc
 //    private Result checkIfRealPerson(JobSeeker jobSeeker) {
 //        if (!mernisService.checkIfRealPerson(jobSeeker.getNationalityId(), jobSeeker.getFirstName(),
 //                jobSeeker.getLastName(), jobSeeker.getDateOfBirth())) ;
