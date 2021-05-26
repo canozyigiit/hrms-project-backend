@@ -27,7 +27,7 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public Result add(JobSeeker jobSeeker) {
         Result result = BusinessRules.Run(checkIfJobSeekerEmailExists(jobSeeker),checkIfJobSeekerNationalIdExists(jobSeeker),
-                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()),nationalIdLengthControl(jobSeeker));
+                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()));
         if (result != null) {
             return result;
         }
@@ -66,7 +66,7 @@ public class JobSeekerManager implements JobSeekerService {
         }
 
         return new SuccessResult();
-    }
+    }//Eposta kontrolü
 
     private Result checkIfJobSeekerEmailExists(JobSeeker jobSeeker) {
         var result = jobSeekerDao.findAllByEmail(jobSeeker.getEmail()).stream().count() != 0;
@@ -74,14 +74,7 @@ public class JobSeekerManager implements JobSeekerService {
             return new ErrorResult(Messages.jobSeekerEmailExists);
         }
         return new SuccessResult();
-    }
-    private Result nationalIdLengthControl(JobSeeker jobSeeker) {
-
-        if (jobSeeker.getNationalityId().length() != 11) {
-            return new ErrorResult(Messages.nationalIdLengthError);
-        }
-        return new SuccessResult();
-    }
+    }//Bu emailde başka kullanıcı var mı ?
 
     private Result checkIfJobSeekerNationalIdExists(JobSeeker jobSeeker) {
         var result = jobSeekerDao.findAllByNationalityId(jobSeeker.getNationalityId()).stream().count() != 0;
@@ -89,7 +82,7 @@ public class JobSeekerManager implements JobSeekerService {
             return new ErrorResult(Messages.jobSeekerNationalIdExists);
         }
         return new SuccessResult();
-    }
+    }//Bu tc de başka kullanıcı var mı?
 
     private Result checkJobSeekerFields(JobSeeker jobSeeker) {
         if (jobSeeker.getEmail() == null || jobSeeker.getPassword() == null || jobSeeker.getFirstName() == null
@@ -97,7 +90,7 @@ public class JobSeekerManager implements JobSeekerService {
             return new ErrorResult(Messages.jobSeekerFieldCheck);
         }
         return new SuccessResult();
-    }
+    }//Boş alan kontrolü
 
 //    private Result checkIfRealPerson(JobSeeker jobSeeker) {
 //        if (!mernisService.checkIfRealPerson(jobSeeker.getNationalityId(), jobSeeker.getFirstName(),

@@ -46,18 +46,21 @@ public class JobPositionManager implements JobPositionService {
         jobPositionDao.delete(jobPosition);
         return new SuccessResult(Messages.jobPositionDeleted);
     }
+    
+    
     private Result checkIfJobPositonNameExists(JobPosition jobPosition) {
         var result = jobPositionDao.findAllByName(jobPosition.getName()).stream().count()!=0;
         if (result) {
             return new ErrorResult(Messages.jobPositionExists);
         }
         return new SuccessResult();
-    }
+    }//Bu isimde başka iş pozisyonu var mı?
+    
     private Result checkIfJobPositionNameLength(JobPosition jobPosition){
         if (jobPosition.getName().length()<3){
             return new ErrorResult(Messages.jobPositionNameLengthError);
         }
         return new SuccessResult();
-    }
+    }//Pozisyon ismi 3 karakterden uzun olsun(test amaçlı)
 
 }
