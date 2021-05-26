@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class EmployerManager implements EmployerService {
@@ -24,7 +26,7 @@ public class EmployerManager implements EmployerService {
     @Override
     public Result add(Employer employer) {
         Result result = BusinessRules.Run(checkIfEmployerFields(employer), checkIfEmployerEmailExists(employer),
-                checkEmailIsCompatibleWithDomain(employer.getEmail(),employer.getCompanyName()));
+                checkEmailIsCompatibleWithDomain(employer.getEmail(),employer.getCompanyName()),checkIfEmployerEmailValid(employer.getEmail()));
         if (result != null) {
             return result;
         }
@@ -68,18 +70,18 @@ public class EmployerManager implements EmployerService {
         return new SuccessResult();
     }
 
-//    private Result employerEmailValid(String email, String companyName) {
-//        Pattern validEmail =
-//                Pattern.compile("^[A-Z0-9._%+-]+@[" + companyName + "]+\\.[A-Z]{2,6}$",
-//                        Pattern.CASE_INSENSITIVE);
-//
-//        Matcher matcher = validEmail.matcher(email);
-//        if (!matcher.matches()) {
-//            return new ErrorResult(Messages.errorEmployerEmail);
-//        }
-//
-//        return new SuccessResult();
-//    }
+    private Result checkIfEmployerEmailValid(String email) {
+        Pattern validEmail =
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+                        Pattern.CASE_INSENSITIVE);
+
+        Matcher matcher = validEmail.matcher(email);
+        if (!matcher.matches()) {
+            return new ErrorResult(Messages.errorEmployerEmail);
+        }
+
+        return new SuccessResult();
+    }
     private Result checkEmailIsCompatibleWithDomain(String email, String companyName){
 
         String[] isEmailCompatible = email.split("@", 2);
