@@ -2,9 +2,8 @@ package hrms.hrmsproject.api.controllers;
 
 import hrms.hrmsproject.business.abstracts.AuthService;
 import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.entities.dtos.authDtos.RegisterEmployerDto;
-import hrms.hrmsproject.entities.dtos.authDtos.RegisterJobSeekerDto;
-import hrms.hrmsproject.entities.dtos.authDtos.UserLoginDto;
+import hrms.hrmsproject.entities.dtos.authDtos.RegisterEmployerRegisterDto;
+import hrms.hrmsproject.entities.dtos.authDtos.RegisterJobSeekerRegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,12 +26,12 @@ public class AuthControllers {
 //    }
 
     @PostMapping("/registerforemployer")
-    public Result registerForEmployer(@RequestBody RegisterEmployerDto registerForEmployerDto) {
+    public Result registerForEmployer(@RequestBody RegisterEmployerRegisterDto registerForEmployerDto) {
         return authService.registerForEmployer(registerForEmployerDto);
     }
 
     @PostMapping("/registerforjobseeker")
-    public Result registerForJobSeeker(@RequestBody RegisterJobSeekerDto registerForJobSeekerDto) {
+    public Result registerForJobSeeker(@RequestBody RegisterJobSeekerRegisterDto registerForJobSeekerDto) {
         return authService.registerForJobSeeker(registerForJobSeekerDto);
     }
 }

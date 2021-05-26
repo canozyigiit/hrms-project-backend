@@ -7,9 +7,9 @@ import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.entities.concretes.Employer;
 import hrms.hrmsproject.entities.concretes.JobSeeker;
-import hrms.hrmsproject.entities.dtos.authDtos.AuthDto;
-import hrms.hrmsproject.entities.dtos.authDtos.RegisterEmployerDto;
-import hrms.hrmsproject.entities.dtos.authDtos.RegisterJobSeekerDto;
+import hrms.hrmsproject.entities.dtos.authDtos.AuthRegisterDto;
+import hrms.hrmsproject.entities.dtos.authDtos.RegisterEmployerRegisterDto;
+import hrms.hrmsproject.entities.dtos.authDtos.RegisterJobSeekerRegisterDto;
 import hrms.hrmsproject.entities.dtos.authDtos.UserLoginDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class AuthManager implements AuthService {
     }
 
     @Override
-    public Result registerForEmployer(RegisterEmployerDto registerEmployerDto) {
+    public Result registerForEmployer(RegisterEmployerRegisterDto registerEmployerDto) {
         Result result = BusinessRules.Run(checkPasswordConfirm(registerEmployerDto.getPassword(), registerEmployerDto.getPasswordConfirm()),
                 checkNullFields(registerEmployerDto), this.UserExists(registerEmployerDto.getEmail()));
         if (result != null) {
@@ -47,7 +47,7 @@ public class AuthManager implements AuthService {
     }
 
     @Override
-    public Result registerForJobSeeker(RegisterJobSeekerDto registerJobSeekerDto) {
+    public Result registerForJobSeeker(RegisterJobSeekerRegisterDto registerJobSeekerDto) {
         Result result = BusinessRules.Run(checkPasswordConfirm(registerJobSeekerDto.getPassword(), registerJobSeekerDto.getPasswordConfirm()),
                 this.UserExists(registerJobSeekerDto.getEmail()), checkNullFields(registerJobSeekerDto));
         if (result != null) {
@@ -91,9 +91,9 @@ public class AuthManager implements AuthService {
         return new SuccessResult();
     }
 
-    private Result checkNullFields(AuthDto authDto) {
+    private Result checkNullFields(AuthRegisterDto authRegisterDto) {
 
-        if (authDto.getPassword() == null || authDto.getPasswordConfirm() == null) {
+        if (authRegisterDto.getPassword() == null || authRegisterDto.getPasswordConfirm() == null) {
             return new ErrorResult(Messages.authFieldsError);
         }
         return new SuccessResult();

@@ -31,7 +31,7 @@ public class JobSeeker extends User {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    @Column(name = "is_verified", columnDefinition = "boolean default false")
+    @Column(name = "is_verified")
     private boolean isVerified = false;
 
 
