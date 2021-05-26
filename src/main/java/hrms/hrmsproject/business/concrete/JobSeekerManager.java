@@ -27,7 +27,7 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public Result add(JobSeeker jobSeeker) {
         Result result = BusinessRules.Run(checkIfJobSeekerEmailExists(jobSeeker),checkIfJobSeekerNationalIdExists(jobSeeker),
-                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()));
+                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()),nationalIdLengthControl(jobSeeker));
         if (result != null) {
             return result;
         }
@@ -92,6 +92,13 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessResult();
     }//Boş alan kontrolü
 
+    private Result nationalIdLengthControl(JobSeeker jobSeeker) {
+
+        if (jobSeeker.getNationalityId().length() != 11) {
+            return new ErrorResult(Messages.nationalIdLengthError);
+        }
+        return new SuccessResult();
+    }
 //    private Result checkIfRealPerson(JobSeeker jobSeeker) {
 //        if (!mernisService.checkIfRealPerson(jobSeeker.getNationalityId(), jobSeeker.getFirstName(),
 //                jobSeeker.getLastName(), jobSeeker.getDateOfBirth())) ;
