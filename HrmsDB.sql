@@ -3,6 +3,13 @@
 BEGIN;
 
 
+CREATE TABLE public.cities
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    name character varying(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.employers
 (
     user_id integer NOT NULL,
@@ -19,6 +26,23 @@ CREATE TABLE public.employers_verification_system_personnels
     system_personnel_id integer NOT NULL,
     employer_id integer NOT NULL,
     created_date date NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.job_adverts
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    job_position_id integer NOT NULL,
+    city_id integer NOT NULL,
+    employer_id integer NOT NULL,
+    description character varying NOT NULL,
+    open_position_count integer NOT NULL,
+    deadline date NOT NULL,
+    is_open boolean NOT NULL,
+    created_date date NOT NULL,
+    is_active boolean NOT NULL,
+    salary_min integer,
+    salary_max integer,
     PRIMARY KEY (id)
 );
 
@@ -55,7 +79,7 @@ CREATE TABLE public.users
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     email character varying(50) NOT NULL,
     password character varying(30) NOT NULL,
-    created_date date NOT NULL,
+    created_at date NOT NULL,
     is_active boolean NOT NULL,
     PRIMARY KEY (id)
 );
@@ -86,6 +110,24 @@ ALTER TABLE public.employers_verification_system_personnels
 ALTER TABLE public.employers_verification_system_personnels
     ADD FOREIGN KEY (employer_id)
     REFERENCES public.employers (user_id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_adverts
+    ADD FOREIGN KEY (city_id)
+    REFERENCES public.cities (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_adverts
+    ADD FOREIGN KEY (employer_id)
+    REFERENCES public.employers (user_id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_adverts
+    ADD FOREIGN KEY (job_position_id)
+    REFERENCES public.job_positions (id)
     NOT VALID;
 
 
