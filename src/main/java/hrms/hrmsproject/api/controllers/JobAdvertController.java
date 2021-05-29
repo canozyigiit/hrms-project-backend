@@ -35,8 +35,8 @@ public class JobAdvertController {
         return this.jobAdvertService.changeOpenToClose(id);
     }
 
-    @GetMapping("/getAllOpenJobAdvertList")
-    public DataResult<List<JobAdvert>> getAllOpenJobAdvertList() {
+    @GetMapping("/getAllOpenTrueJobAdvertList")
+    public DataResult<List<JobAdvert>> getAllOpenTrueJobAdvertList() {
         return this.jobAdvertService.getAllOpenJobAdvertList();
     }
     @GetMapping("/getByisOpenTrueOrderByCreatedDateDesc")
@@ -44,7 +44,7 @@ public class JobAdvertController {
         return this.jobAdvertService.getByisOpenTrueOrderByCreatedDateDesc();
     }
 
-    @GetMapping("/getAllOpenJobAdvertByEmployer")
+    @GetMapping("/getAllOpenTrueJobAdvertByEmployer")
     public DataResult<List<JobAdvert>> getByisOpenTrueAndEmployer_Id(int id) {
         return this.jobAdvertService.getByisOpenTrueAndEmployer_Id(id);
     }

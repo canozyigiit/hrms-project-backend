@@ -63,7 +63,7 @@ public class Messages {
     public static String JobAdvertUpdated = "Job Advert Updated";
     public static String JobAdvertDeleted = "Job Advert Deleted";
 
-    public static String allActivePositonsInCompany;
+    public static String allActivePositonsInCompany = "open job postings of the company are listed";
     public static String allActivePositionsListed = "Open job adverts listed";
     public static String JobAdvertListed = "Job Advert Listed";
     public static String JobAdvertGet = "Job Advert Found";
