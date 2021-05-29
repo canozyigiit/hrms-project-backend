@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/employers")
-public class EmployerControllers {
+public class EmployerController {
     private EmployerService employerService;
 
     @Autowired
-    public EmployerControllers(EmployerService employerService) {
+    public EmployerController(EmployerService employerService) {
         this.employerService = employerService;
     }
 

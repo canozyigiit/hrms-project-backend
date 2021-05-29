@@ -1,5 +1,6 @@
 package hrms.hrmsproject.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,17 +21,18 @@ public class EmailVerificationCode {
     private int id;
 
     @Column(name = "user_id")
-    private int userId;//kimin kodu
+    private int userId;
 
     @Column(name = "email_verification_code")
-    private String emailVerificationCode;//dogrulamakodu
+    private String emailVerificationCode;
 
     @Column(name = "is_confirmed")
-    private boolean isConfirmed;//onaylanmabilgisi
+    private boolean isConfirmed;
 
     @Column(name = "created_date")
-    private LocalDate createdDate;//oluşturulmatarihi
+    @JsonIgnore
+    private LocalDate createdDate = LocalDate.now();
 
     @Column(name = "confirmed_date")
-    private LocalDate confirmedDate;//onaylanmatarihi
+    private LocalDate confirmedDate;
 }

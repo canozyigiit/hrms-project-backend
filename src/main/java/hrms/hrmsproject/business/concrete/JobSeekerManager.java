@@ -55,6 +55,8 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessResult(Messages.jobSekeerDeleted);
     }
 
+    //************************************************************************************************************
+
     private Result checkIfJobSeekerEmailValid(String email) {
         Pattern validEmail =
                 Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",

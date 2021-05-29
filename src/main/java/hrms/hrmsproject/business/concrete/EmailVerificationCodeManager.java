@@ -6,7 +6,9 @@ import hrms.hrmsproject.core.utilities.results.SuccessResult;
 import hrms.hrmsproject.dataAccess.abstracts.EmailVerificationCodeDao;
 import hrms.hrmsproject.entities.concretes.EmailVerificationCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EmailVerificationCodeManager implements EmailVerificationCodeService {
     private EmailVerificationCodeDao emailVerificationCodeDao;
 

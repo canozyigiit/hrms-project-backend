@@ -52,6 +52,8 @@ public class EmployerManager implements EmployerService {
 
     }
 
+    //************************************************************************************************************
+
     private Result checkIfEmployerEmailExists(Employer employer) {
         var result = employerDao.findAllByEmail(employer.getEmail()).stream().count() != 0;
         if (result) {

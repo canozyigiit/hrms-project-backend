@@ -46,7 +46,9 @@ public class JobPositionManager implements JobPositionService {
         jobPositionDao.delete(jobPosition);
         return new SuccessResult(Messages.jobPositionDeleted);
     }
-    
+
+
+    //************************************************************************************************************
     
     private Result checkIfJobPositonNameExists(JobPosition jobPosition) {
         var result = jobPositionDao.findAllByName(jobPosition.getName()).stream().count()!=0;

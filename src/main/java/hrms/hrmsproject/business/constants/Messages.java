@@ -54,5 +54,23 @@ public class Messages {
     public static String authFieldsError = "All fields are required";
     public static String mailVerification = "Verification has been sent to the mail :";
 
+    //City
+    public static String CityAdded = "City Added";
+    public static String CityListed = "Cities Listed";
 
+    //Job Advert
+    public static String JobAdvertAdded = "Job Advert Added";
+    public static String JobAdvertUpdated = "Job Advert Updated";
+    public static String JobAdvertDeleted = "Job Advert Deleted";
+
+    public static String allActivePositonsInCompany;
+    public static String allActivePositionsListed = "Open job adverts listed";
+    public static String JobAdvertListed = "Job Advert Listed";
+    public static String JobAdvertGet = "Job Advert Found";
+    public static String jobAdvertFieldCheck = "job advert fields cannot be left blank";
+    public static String openPositionCountError = "work position is not less than zero";
+    public static String salaryError = "min salary cannot be greater than max salary";
+    public static String mixSalaryEqualsMaxSalary = "The min salary and the max salary cannot be equated.";
+    public static String jobAdvertNotFound = "job adverts not found";
+    public static String jobAdvertClosed = "Job adverts are disabled";
 }

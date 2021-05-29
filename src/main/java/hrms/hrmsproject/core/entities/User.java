@@ -1,11 +1,13 @@
 package hrms.hrmsproject.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -26,9 +28,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "created_date")
-    private LocalDate createdAt = LocalDate.now();
+    @Column(name = "created_at")
+    @JsonIgnore
+    private LocalDate createdDate = LocalDate.now();
 
     @Column(name = "is_active")
+    @JsonIgnore
     private boolean active = true;
 }

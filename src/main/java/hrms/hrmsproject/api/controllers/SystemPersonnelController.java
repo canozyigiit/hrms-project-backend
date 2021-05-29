@@ -12,11 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/systempersonnels")
-public class SystemPersonnelControllers {
+public class SystemPersonnelController {
     private SystemPersonnelService systemPersonnelService;
 
     @Autowired
-    public SystemPersonnelControllers(SystemPersonnelService systemPersonnelService) {
+    public SystemPersonnelController(SystemPersonnelService systemPersonnelService) {
         this.systemPersonnelService = systemPersonnelService;
     }
 

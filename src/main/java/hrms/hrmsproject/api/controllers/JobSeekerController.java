@@ -11,11 +11,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/jobsekeers")
-public class JobSeekerControllers {
+public class JobSeekerController {
     private JobSeekerService jobSeekerService;
 
     @Autowired
-    public JobSeekerControllers(JobSeekerService jobSeekerService) {
+    public JobSeekerController(JobSeekerService jobSeekerService) {
         this.jobSeekerService = jobSeekerService;
     }
 
