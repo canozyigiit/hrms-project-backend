@@ -1,9 +1,11 @@
 package hrms.hrmsproject.business.abstracts;
 
+import hrms.hrmsproject.core.entities.User;
 import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.entities.concretes.EmailVerificationCode;
 
 public interface EmailVerificationCodeService {
 
-    Result add(EmailVerificationCode emailVerificationCode);
+    String createVerifyCode(User user);
+    void sendMail(String mail);
+    Result verifyUser(String code);
 }

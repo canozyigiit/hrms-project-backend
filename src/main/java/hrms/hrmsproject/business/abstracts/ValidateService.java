@@ -2,6 +2,6 @@ package hrms.hrmsproject.business.abstracts;
 
 import hrms.hrmsproject.core.utilities.results.Result;
 
-public interface MailService {
-    Result send(String email);
+public interface ValidateService <T> {
+    Result verifyData(T data);
 }

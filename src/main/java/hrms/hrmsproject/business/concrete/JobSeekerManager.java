@@ -1,8 +1,9 @@
 package hrms.hrmsproject.business.concrete;
 
-import hrms.hrmsproject.business.abstracts.JobSeekerService;
-import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.adapters.MernisService;
+import hrms.hrmsproject.business.abstracts.JobSeekerService;
+import hrms.hrmsproject.business.abstracts.ValidateService;
+import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.JobSeekerDao;
@@ -11,31 +12,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class JobSeekerManager implements JobSeekerService {
     private JobSeekerDao jobSeekerDao;
     private MernisService mernisService;
+    private ValidateService<JobSeeker> validateService;
 
     @Autowired
-    public JobSeekerManager(JobSeekerDao jobSeekerDao) {
+    public JobSeekerManager(JobSeekerDao jobSeekerDao,MernisService mernisService,ValidateService<JobSeeker> validateService) {
         this.jobSeekerDao = jobSeekerDao;
+        this.mernisService = mernisService;
+        this.validateService = validateService;
     }
 
     @Override
     public Result add(JobSeeker jobSeeker) {
-        Result result = BusinessRules.Run(checkIfJobSeekerEmailExists(jobSeeker),checkIfJobSeekerNationalIdExists(jobSeeker),
-                checkJobSeekerFields(jobSeeker), checkIfJobSeekerEmailValid(jobSeeker.getEmail()),nationalIdLengthControl(jobSeeker));
+        Result result = BusinessRules.Run(
+                checkIfJobSeekerEmailExists(jobSeeker),
+                checkIfJobSeekerNationalIdExists(jobSeeker),
+                nationalIdLengthControl(jobSeeker));
         if (result != null) {
             return result;
         }
-//        else if (!mernisService.checkIfRealPerson(jobSeeker.getNationalityId(), jobSeeker.getFirstName(),
-//                jobSeeker.getLastName(), jobSeeker.getDateOfBirth())) {
-//            return new ErrorResult(Messages.notRealPerson);
-//        }
+        else if (!mernisService.checkIfRealPerson(jobSeeker)) {
+            return new ErrorResult(Messages.notRealPerson);
+        }
         this.jobSeekerDao.save(jobSeeker);
+        this.validateService.verifyData(jobSeeker);
         return new SuccessResult(Messages.jobSekeerAdded);
     }
 
@@ -57,18 +61,6 @@ public class JobSeekerManager implements JobSeekerService {
 
     //************************************************************************************************************
 
-    private Result checkIfJobSeekerEmailValid(String email) {
-        Pattern validEmail =
-                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-                        Pattern.CASE_INSENSITIVE);
-
-        Matcher matcher = validEmail.matcher(email);
-        if (!matcher.matches()) {
-            return new ErrorResult(Messages.errorjobSeekerEmail);
-        }
-
-        return new SuccessResult();
-    }//Eposta kontrolü
 
     private Result checkIfJobSeekerEmailExists(JobSeeker jobSeeker) {
         var result = jobSeekerDao.findAllByEmail(jobSeeker.getEmail()).stream().count() != 0;
@@ -86,13 +78,7 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessResult();
     }//Bu tc de başka kullanıcı var mı?
 
-    private Result checkJobSeekerFields(JobSeeker jobSeeker) {
-        if (jobSeeker.getEmail() == null || jobSeeker.getPassword() == null || jobSeeker.getFirstName() == null
-                || jobSeeker.getLastName() == null || jobSeeker.getDateOfBirth() == null || jobSeeker.getNationalityId() == null) {
-            return new ErrorResult(Messages.jobSeekerFieldCheck);
-        }
-        return new SuccessResult();
-    }//Boş alan kontrolü
+
 
     private Result nationalIdLengthControl(JobSeeker jobSeeker) {
 
@@ -101,12 +87,12 @@ public class JobSeekerManager implements JobSeekerService {
         }
         return new SuccessResult();
     }//11 karakter olmalı Tc
-//    private Result checkIfRealPerson(JobSeeker jobSeeker) {
-//        if (!mernisService.checkIfRealPerson(jobSeeker.getNationalityId(), jobSeeker.getFirstName(),
-//                jobSeeker.getLastName(), jobSeeker.getDateOfBirth())) ;
-//        {
-//            return new ErrorResult(Messages.notRealPerson);
-//        }
-//        return new SuccessResult();
-//    }
+
+    private boolean checkIfRealPerson(JobSeeker jobSeeker) {
+        if (!mernisService.checkIfRealPerson(jobSeeker))
+        {
+            return false;
+        }
+        return true;
+    }
 }

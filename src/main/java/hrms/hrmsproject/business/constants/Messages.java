@@ -9,7 +9,9 @@ public class Messages {
     public static String employerDeleted = "Employer Deteled";
     public static String employerEmailExists = "There is already an employer with this email";
     public static String employerFieldCheck = "All fields are required";
-    public static String errorEmployerEmail = "Your e-mail address is not corporate";
+    public static String errorEmployerEmailNotCorporate = "Your e-mail address is not corporate";
+    public static String errorEmployerEmailValid = "Employer email is not correct";
+
 
     //JobPosition
     public static String jobPositionAdded = "Job Position Added";
@@ -57,6 +59,7 @@ public class Messages {
     //City
     public static String CityAdded = "City Added";
     public static String CityListed = "Cities Listed";
+    public static String cityExists = "such a city already exists";
 
     //Job Advert
     public static String JobAdvertAdded = "Job Advert Added";
@@ -73,4 +76,32 @@ public class Messages {
     public static String mixSalaryEqualsMaxSalary = "The min salary and the max salary cannot be equated.";
     public static String jobAdvertNotFound = "job adverts not found";
     public static String jobAdvertClosed = "Job adverts are disabled";
+
+    //Graduate
+    public static String graduateAdded;
+    public static String graduateListed;
+    public static String graduateGet;
+
+    //JobExperience
+    public static String jobExperienceAdded;
+    public static String jobExperienceListed;
+    public static String jobExperienceGet;
+
+    //Language
+    public static String languageAdded;
+    public static String languageListed;
+    public static String languageGet;
+    //Resume
+    public static String resumeAdded;
+    public static String resumeListed;
+    public static String resumeGet;
+    
+    //School
+    public static String schoolAdded;
+    public static String schoolListed;
+    public static String schoolGet;
+    
+    //Technology
+    public static String technologyAdded;
+    public static String technologyListed;
 }

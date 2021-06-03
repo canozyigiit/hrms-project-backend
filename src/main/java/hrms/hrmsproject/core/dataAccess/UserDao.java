@@ -1,4 +1,4 @@
-package hrms.hrmsproject.dataAccess.abstracts;
+package hrms.hrmsproject.core.dataAccess;
 
 
 import hrms.hrmsproject.core.entities.User;

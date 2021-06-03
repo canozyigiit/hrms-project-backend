@@ -21,15 +21,13 @@ public class AuthManager implements AuthService {
     private EmployerService employerService;
     private JobSeekerService jobSeekerService;
     private UserService userService;
-    private MailService mailService;
 
     @Autowired
     public AuthManager(EmployerService employerService, JobSeekerService jobSeekerService,
-                       UserService userService, MailService mailService, ModelMapper modelMapper) {
+                       UserService userService, ModelMapper modelMapper) {
         this.employerService = employerService;
         this.jobSeekerService = jobSeekerService;
         this.userService = userService;
-        this.mailService = mailService;
         this.modelMapper = modelMapper;
     }
 
@@ -41,7 +39,6 @@ public class AuthManager implements AuthService {
             return result;
         }
         Employer employer = modelMapper.map(registerEmployerDto, Employer.class);
-        mailService.send(employer.getEmail());
         employerService.add(employer);
         return new SuccessResult(Messages.userRegistered);
     }
@@ -54,7 +51,6 @@ public class AuthManager implements AuthService {
             return result;
         }
         JobSeeker jobSeeker = modelMapper.map(registerJobSeekerDto, JobSeeker.class);
-        mailService.send(jobSeeker.getEmail());
         jobSeekerService.add(jobSeeker);
         return new SuccessResult(Messages.userRegistered);
     }

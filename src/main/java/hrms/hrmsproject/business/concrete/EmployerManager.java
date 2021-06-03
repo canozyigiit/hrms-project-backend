@@ -2,6 +2,7 @@ package hrms.hrmsproject.business.concrete;
 
 
 import hrms.hrmsproject.business.abstracts.EmployerService;
+import hrms.hrmsproject.business.abstracts.ValidateService;
 import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
@@ -11,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class EmployerManager implements EmployerService {
     private EmployerDao employerDao;
+    private ValidateService<Employer> validateService;
 
     @Autowired
     public EmployerManager(EmployerDao employerDao) {
@@ -25,12 +25,13 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result add(Employer employer) {
-        Result result = BusinessRules.Run(checkIfEmployerFields(employer), checkIfEmployerEmailExists(employer),
-                checkEmailIsCompatibleWithDomain(employer.getEmail(),employer.getCompanyName()),checkIfEmployerEmailValid(employer.getEmail()));
+        Result result = BusinessRules.Run(checkIfEmployerEmailExists(employer),
+                checkEmailIsCompatibleWithDomain(employer.getEmail(),employer.getWebSite()));
         if (result != null) {
             return result;
         }
         this.employerDao.save(employer);
+        validateService.verifyData(employer);
         return new SuccessResult(Messages.employerAdded);
 
     }
@@ -64,33 +65,39 @@ public class EmployerManager implements EmployerService {
 
 
 
-    private Result checkIfEmployerFields(Employer employer) {
-        if (employer.getEmail() == "" || employer.getCompanyName() == "" ||
-                employer.getPassword() == "" || employer.getWebSite() == "" || employer.getEmail() == "" || employer.getPassword() == "") {
-            return new ErrorResult(Messages.employerFieldCheck);
-        }
-        return new SuccessResult();
-    }//Boş alan kontrolü
+//    private Result checkIfEmployerFields(Employer employer) {
+//        if (employer.getEmail() == "" || employer.getCompanyName() == "" ||
+//                employer.getPassword() == "" || employer.getWebSite() == "" || employer.getEmail() == "" || employer.getPassword() == "") {
+//            return new ErrorResult(Messages.employerFieldCheck);
+//        }
+//        return new SuccessResult();
+//    }//Boş alan kontrolü
 
-    private Result checkIfEmployerEmailValid(String email) {
-        Pattern validEmail =
-                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
-                        Pattern.CASE_INSENSITIVE);
-
-        Matcher matcher = validEmail.matcher(email);
-        if (!matcher.matches()) {
-            return new ErrorResult(Messages.errorEmployerEmail);
-        }
-
-        return new SuccessResult();
-    }
-    private Result checkEmailIsCompatibleWithDomain(String email, String companyName){
+//    private Result checkIfEmployerEmail(String email, String webSite) {
+//        Pattern validEmail =
+//                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+//                        Pattern.CASE_INSENSITIVE);
+//
+//        Matcher matcher = validEmail.matcher(email);
+//
+//        String[] isEmailCompatible = email.split("@", 2);//İkiye bölüyor  öncesi@sonrası
+//        String webSiten = webSite.substring(4);//www. den sonrası
+//
+//        if (!matcher.matches() ) {
+//            return new ErrorResult(Messages.errorEmployerEmailValid);
+//        }else if (!isEmailCompatible[1].equals(webSiten)){
+//            return new ErrorResult(Messages.errorEmployerEmailNotCorporate);
+//        }
+//
+//        return new SuccessResult();
+//    }
+    private Result checkEmailIsCompatibleWithDomain(String email, String employerWebSite){
 
         String[] isEmailCompatible = email.split("@", 2);//İkiye bölüyor  öncesi@sonrası
-        String webSite = companyName.substring(4);//www. den sonrası
+        String webSite = employerWebSite.substring(4);//www. den sonrası
 
         if (!isEmailCompatible[1].equals(webSite)){
-            return new ErrorResult(Messages.errorEmployerEmail);
+            return new ErrorResult(Messages.errorEmployerEmailNotCorporate);
         }
 
         return new SuccessResult();

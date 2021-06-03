@@ -23,7 +23,7 @@ public class JobPositionManager implements JobPositionService {
 
     @Override
     public Result add(JobPosition jobPosition) {
-        Result result = BusinessRules.Run(checkIfJobPositonNameExists(jobPosition),checkIfJobPositionNameLength(jobPosition));
+        Result result = BusinessRules.Run(checkIfJobPositonNameExists(jobPosition));
         if (result != null) {
             return result;
         }
@@ -57,12 +57,6 @@ public class JobPositionManager implements JobPositionService {
         }
         return new SuccessResult();
     }//Bu isimde başka iş pozisyonu var mı?
-    
-    private Result checkIfJobPositionNameLength(JobPosition jobPosition){
-        if (jobPosition.getName().length()<3){
-            return new ErrorResult(Messages.jobPositionNameLengthError);
-        }
-        return new SuccessResult();
-    }//Pozisyon ismi 3 karakterden uzun olsun(test amaçlı)
+
 
 }

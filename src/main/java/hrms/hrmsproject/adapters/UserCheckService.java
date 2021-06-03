@@ -1,7 +1,7 @@
 package hrms.hrmsproject.adapters;
 
-import java.time.LocalDate;
+import hrms.hrmsproject.entities.concretes.JobSeeker;
 
 public interface UserCheckService {
-    boolean checkIfRealPerson(String nationalityId, String firstName, String lastName, LocalDate dateOfBirthYear);
+    boolean checkIfRealPerson(JobSeeker jobSeeker);
 }

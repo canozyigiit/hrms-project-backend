@@ -2,11 +2,14 @@ package hrms.hrmsproject.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,6 +27,9 @@ public class JobPosition {
     private int id;
 
     @Column(name = "name")
+    @NotNull
+    @NotBlank
+    @Size(min = 2,max = 100)
     private String name;
 
     @Column(name= "created_date")

@@ -6,9 +6,10 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class JobAdvertDetailDto implements Dto {
+public class JobAdvertDto implements Dto {
     private String companyName;
     private String name;
     private int openPositionCount;
+    private LocalDate createdDate;
     private LocalDate deadLine;
 }

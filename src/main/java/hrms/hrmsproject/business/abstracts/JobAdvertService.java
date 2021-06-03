@@ -3,9 +3,8 @@ package hrms.hrmsproject.business.abstracts;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.concretes.JobAdvert;
+import hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertDto;
 
-import javax.xml.crypto.Data;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface JobAdvertService {
@@ -15,9 +14,9 @@ public interface JobAdvertService {
     Result changeOpenToClose(int id);
     DataResult<JobAdvert> getById(int id);
     DataResult<List<JobAdvert>> getAll();
+    //DataResult<List<JobAdvertDto>> getAllDto();
 
-    DataResult<List<JobAdvert>>getByisOpenTrueOrderByCreatedDateDesc();
-    DataResult<List<JobAdvert>> getAllOpenJobAdvertList();
-    DataResult<List<JobAdvert>> getByisOpenTrueAndEmployer_Id(int id);
-//    DataResult<List<JobAdvert>> getAllOpenAndDeadLine(boolean isOpen, LocalDate deadline);
+    DataResult<List<JobAdvertDto>>getByisOpenTrueOrderByCreatedDateDesc();
+    DataResult<List<JobAdvertDto>> getAllOpenJobAdvertList();
+    DataResult<List<JobAdvertDto>> getByisOpenTrueAndEmployer_Id(int id);
 }
