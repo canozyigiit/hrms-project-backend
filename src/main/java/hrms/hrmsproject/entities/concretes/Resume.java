@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class Resume {
     private String photo;
 
     @Column(name="description")
+    @Size(max = 250)
     private String description;
 
     @Column(name="created_date")
