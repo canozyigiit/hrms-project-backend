@@ -1,29 +1,36 @@
 package hrms.hrmsproject.business.concrete;
 
-import hrms.hrmsproject.adapters.MernisService;
+import hrms.hrmsproject.core.utilities.adapters.MernisService;
 import hrms.hrmsproject.business.abstracts.JobSeekerService;
 import hrms.hrmsproject.business.abstracts.ValidateService;
 import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
+import hrms.hrmsproject.core.utilities.uploads.FileService;
 import hrms.hrmsproject.dataAccess.abstracts.JobSeekerDao;
 import hrms.hrmsproject.entities.concretes.JobSeeker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JobSeekerManager implements JobSeekerService {
     private JobSeekerDao jobSeekerDao;
     private MernisService mernisService;
     private ValidateService<JobSeeker> validateService;
+    private FileService fileService;
 
     @Autowired
-    public JobSeekerManager(JobSeekerDao jobSeekerDao,MernisService mernisService,ValidateService<JobSeeker> validateService) {
+    public JobSeekerManager(JobSeekerDao jobSeekerDao,MernisService mernisService,
+                            ValidateService<JobSeeker> validateService,
+                            FileService fileService) {
         this.jobSeekerDao = jobSeekerDao;
         this.mernisService = mernisService;
         this.validateService = validateService;
+        this.fileService = fileService;
     }
 
     @Override
@@ -57,6 +64,16 @@ public class JobSeekerManager implements JobSeekerService {
     public Result delete(JobSeeker jobSeeker) {
         this.jobSeekerDao.delete(jobSeeker);
         return new SuccessResult(Messages.jobSekeerDeleted);
+    }
+
+    @Override
+    public Result addImageJobSeeker(MultipartFile file, int jobSeekerId) {
+        Map<String, String> uploader = (Map<String, String>)fileService.save(file).getData();
+        String imageUrl= uploader.get("url");
+        JobSeeker jobSeeker = jobSeekerDao.getOne(jobSeekerId);
+        jobSeeker.setPhoto(imageUrl);
+        jobSeekerDao.save(jobSeeker);
+        return new SuccessResult("Image added");
     }
 
     //************************************************************************************************************

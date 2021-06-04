@@ -1,7 +1,5 @@
 package hrms.hrmsproject.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 import hrms.hrmsproject.core.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,19 +27,16 @@ public class JobSeeker extends User {
 
 
     @Column(name = "first_name")
-    @NotNull
     @NotBlank
     @Size(min = 2,max = 50)
     private String firstName;
 
     @Column(name = "last_name")
-    @NotNull
     @NotBlank
     @Size(min = 2,max = 50)
     private String lastName;
 
     @Column(name = "national_id",unique = true)
-    @NotNull
     @NotBlank
     private String nationalityId;
 
@@ -50,9 +45,7 @@ public class JobSeeker extends User {
     @Past
     private LocalDate dateOfBirth;
 
-    @Column(name = "is_verified")
-    @JsonIgnore
-    private boolean isVerified = true;
-
+    @Column(name="photo")
+    private String photo;
 
 }

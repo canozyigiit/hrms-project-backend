@@ -14,7 +14,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,26 +28,13 @@ public class JobAdvertsController {
         this.jobAdvertService = jobAdvertService;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody JobAdvert jobAdvert) {
-        return ResponseEntity.ok(this.jobAdvertService.add(jobAdvert));
-    }
-    @PostMapping("dtoadd")
+//    @PostMapping("/add")
+//    public ResponseEntity<?> add(@Valid @RequestBody JobAdvert jobAdvert) {
+//        return ResponseEntity.ok(this.jobAdvertService.add(jobAdvert));
+//    }
+    @PostMapping("add")
     public ResponseEntity<?> addJobAdvert(@RequestBody JobAdvertAddDto jobAdvertAddDto) {
-
-        JobAdvert jobAdvert = new JobAdvert(jobAdvertAddDto.getCityId(), jobAdvertAddDto.getJobPositionId(),
-                jobAdvertAddDto.getEmployerId(), jobAdvertAddDto.getDescription(),
-                jobAdvertAddDto.getMinSalary(), jobAdvertAddDto.getMaxSalary(),
-                jobAdvertAddDto.getOpenPositionCount(), jobAdvertAddDto.getDeadLine());
-
-        Result result = this.jobAdvertService.add(jobAdvert);
-
-        if (result.isSuccess()) {
-            return ResponseEntity.ok(result);
-        }
-        else {
-            return ResponseEntity.badRequest().body(result);
-        }
+        return ResponseEntity.ok(this.jobAdvertService.add(jobAdvertAddDto));
     }
 
     @GetMapping("/getall")

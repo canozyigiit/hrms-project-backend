@@ -1,10 +1,11 @@
 package hrms.hrmsproject.api.controllers;
 
-import hrms.hrmsproject.business.abstracts.JobSeekerService;
+import hrms.hrmsproject.business.abstracts.ResumeService;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.ErrorDataResult;
 import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.entities.concretes.JobSeeker;
+import hrms.hrmsproject.entities.dtos.resumeDtos.ResumeAddDto;
+import hrms.hrmsproject.entities.dtos.resumeDtos.ResumeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,38 +20,33 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/jobsekeers")
-public class JobSeekersController {
-    private JobSeekerService jobSeekerService;
+@RequestMapping("api/resumes")
+public class ResumesController {
+    private ResumeService resumeService;
 
     @Autowired
-    public JobSeekersController(JobSeekerService jobSeekerService) {
-        this.jobSeekerService = jobSeekerService;
+    public ResumesController(ResumeService resumeService) {
+        this.resumeService = resumeService;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody JobSeeker jobSeeker) {
-        return ResponseEntity.ok(this.jobSeekerService.add(jobSeeker));
+    public ResponseEntity<Result> add(@Valid @RequestBody ResumeAddDto resumeAddDto){
+        return ResponseEntity.ok(this.resumeService.add(resumeAddDto));
     }
 
     @GetMapping("/getall")
-    public DataResult<List<JobSeeker>> getAll() {
-        return this.jobSeekerService.getAll();
+    public DataResult<List<ResumeDto>> getAll(){
+        return this.resumeService.getAll();
     }
 
-    @GetMapping("getbyid/{id}")
-    public DataResult<JobSeeker> getById(@PathVariable int id) {
-        return this.jobSeekerService.getById(id);
-    }
-
-    @PostMapping("/delete")
-    public Result delete(@RequestBody JobSeeker jobSeeker) {
-        return this.jobSeekerService.delete(jobSeeker);
+    @GetMapping("/getByJobSeekerId")
+    public DataResult<ResumeDto> getByJobSeekerId(int id){
+        return this.resumeService.getByJobSeekerId(id);
     }
 
     @PutMapping("/addImageResume")
-    public Result addImageResume(@RequestBody MultipartFile file, @RequestParam int jobSeekerId) {
-        return this.jobSeekerService.addImageJobSeeker(file, jobSeekerId);
+    public Result addImageResume(@RequestBody MultipartFile file, @RequestParam int resumeId) {
+        return this.resumeService.addImageResume(file, resumeId);
 
     }
 

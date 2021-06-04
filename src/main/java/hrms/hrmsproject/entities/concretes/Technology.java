@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -31,7 +30,6 @@ public class Technology {
 
     @Column(name = "description")
     @NotBlank
-    @NotNull
     private String description;
 
     @Column(name = "created_date")

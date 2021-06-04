@@ -3,35 +3,39 @@ package hrms.hrmsproject.business.concrete;
 import hrms.hrmsproject.business.abstracts.JobAdvertService;
 import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
+import hrms.hrmsproject.core.utilities.dtoConverter.DtoConverterService;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.JobAdvertDao;
 import hrms.hrmsproject.entities.concretes.JobAdvert;
+import hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertAddDto;
 import hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class JobAdvertManager implements JobAdvertService {
     private JobAdvertDao jobAdvertDao;
-    @Autowired
     private ModelMapper modelMapper;
+    private DtoConverterService dtoConverterService;
 
     @Autowired
-    public JobAdvertManager(JobAdvertDao jobAdvertDao) {
+    public JobAdvertManager(JobAdvertDao jobAdvertDao,ModelMapper modelMapper,
+                             DtoConverterService dtoConverterService) {
         this.jobAdvertDao = jobAdvertDao;
+        this.modelMapper = modelMapper;
+        this.dtoConverterService = dtoConverterService;
     }
 
     @Override
-    public Result add(JobAdvert jobAdvert) {
-        Result result = BusinessRules.Run(salaryControl(jobAdvert));
+    public Result add(JobAdvertAddDto jobAdvertAddDto) {
+        Result result = BusinessRules.Run(salaryControl(jobAdvertAddDto));
         if (result != null) {
             return result;
         }
-        this.jobAdvertDao.save(jobAdvert);
+        this.jobAdvertDao.save((JobAdvert) dtoConverterService.dtoClassConverter(jobAdvertAddDto,JobAdvert.class));
         return new SuccessResult(Messages.JobAdvertAdded);
     }
 
@@ -71,40 +75,29 @@ public class JobAdvertManager implements JobAdvertService {
         return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll(), Messages.JobAdvertListed);
     }
 
-//    @Override
-//    public DataResult<List<JobAdvertDto>> getAllDto() {
-//        List<JobAdvertDto> jobAdvertDtos = new ArrayList<JobAdvertDto>();
-//        this.jobAdvertDao.findAll().stream().forEach(adv -> {
-//            JobAdvertDto jDto = modelMapper.map(adv, JobAdvertDto.class);
-//            jDto.setCompanyName(adv.getEmployer().getCompanyName());
-//           // jDto.setName(adv.getJobPosition().getName());
-//            jobAdvertDtos.add(jDto);
-//        });
-//        return new SuccessDataResult<List<JobAdvertDto>>(jobAdvertDtos, "Veriler Listelendi");
-//    }
 
     @Override
     public DataResult<List<JobAdvertDto>> getByisOpenTrueOrderByCreatedDateDesc() {
-        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoGenerator(jobAdvertDao.getByisOpenTrueOrderByCreatedDateDesc()));
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueOrderByCreatedDateDesc(),JobAdvertDto.class));
     }
 
     @Override
     public DataResult<List<JobAdvertDto>> getAllOpenJobAdvertList() {
-        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoGenerator(this.jobAdvertDao.getByisOpenTrue()), Messages.allActivePositionsListed);
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(this.jobAdvertDao.getByisOpenTrue(),JobAdvertDto.class), Messages.allActivePositionsListed);
     }
 
     @Override
     public DataResult<List<JobAdvertDto>> getByisOpenTrueAndEmployer_Id(int id) {
-        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoGenerator(jobAdvertDao.getByisOpenTrueAndEmployer_Id(id)), Messages.allActivePositonsInCompany);
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndEmployer_Id(id),JobAdvertDto.class), Messages.allActivePositonsInCompany);
     }
 
 
 //************************************************************************************************************
 
-    private Result salaryControl(JobAdvert jobAdvert) {
-        if (jobAdvert.getSalaryMin() > jobAdvert.getSalaryMax()) {
+    private Result salaryControl(JobAdvertAddDto jobAdvertAddDto) {
+        if (jobAdvertAddDto.getSalaryMin() > jobAdvertAddDto.getSalaryMax()) {
             return new ErrorResult(Messages.salaryError);
-        } else if (jobAdvert.getSalaryMin() == jobAdvert.getSalaryMax()) {
+        } else if (jobAdvertAddDto.getSalaryMin() == jobAdvertAddDto.getSalaryMax()) {
             return new ErrorResult(Messages.mixSalaryEqualsMaxSalary);
         }
         return new SuccessResult();
@@ -117,16 +110,16 @@ public class JobAdvertManager implements JobAdvertService {
         return new SuccessResult();
     }
 
-    private List<JobAdvertDto> dtoGenerator(List<JobAdvert> jobAdvert) {
-        List<JobAdvertDto> jobAdvertDtos = new ArrayList<JobAdvertDto>();
-        jobAdvert.forEach(item -> {
-            JobAdvertDto dto = modelMapper.map(item, JobAdvertDto.class);
-            dto.setCompanyName(item.getEmployer().getCompanyName());
-            dto.setName(item.getJobPosition().getName());
-            jobAdvertDtos.add(dto);
-        });
-        return jobAdvertDtos;
-
-    }
+//    private List<JobAdvertDto> dtoGenerator(List<JobAdvert> jobAdvert) {
+//        List<JobAdvertDto> jobAdvertDtos = new ArrayList<JobAdvertDto>();
+//        jobAdvert.forEach(item -> {
+//            JobAdvertDto dto = modelMapper.map(item, JobAdvertDto.class);
+//            dto.setCompanyName(item.getEmployer().getCompanyName());
+//            dto.setName(item.getJobPosition().getName());
+//            jobAdvertDtos.add(dto);
+//        });
+//        return jobAdvertDtos;
+//
+//    }
 
 }

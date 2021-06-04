@@ -3,16 +3,21 @@ package hrms.hrmsproject.business.abstracts;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.concretes.Resume;
+import hrms.hrmsproject.entities.dtos.resumeDtos.ResumeAddDto;
+import hrms.hrmsproject.entities.dtos.resumeDtos.ResumeDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public interface ResumeService {
 
-    Result add(Resume resume);
+    Result add(ResumeAddDto resumeAddDto);
 
-    DataResult<List<Resume>> getAll();
+    DataResult<List<ResumeDto>> getAll();
 
     DataResult<Resume> getById(int id);
 
-    DataResult<Resume> getByJobSeekerId(int id);
+    DataResult<ResumeDto> getByJobSeekerId(int id);
+
+    Result addImageResume(MultipartFile file, int resumeId);
 }

@@ -4,6 +4,7 @@ package hrms.hrmsproject.business.abstracts;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.concretes.JobSeeker;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,5 +16,7 @@ public interface JobSeekerService {
     DataResult<JobSeeker> getById(int id);
 
     Result delete(JobSeeker jobSeeker);
+
+    Result addImageJobSeeker(MultipartFile file, int jobSeekerId);
 
 }

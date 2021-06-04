@@ -1,8 +1,6 @@
 package hrms.hrmsproject.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "job_positions")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdverts"})
 public class JobPosition {
 
     @Id
@@ -27,7 +24,6 @@ public class JobPosition {
     private int id;
 
     @Column(name = "name")
-    @NotNull
     @NotBlank
     @Size(min = 2,max = 100)
     private String name;

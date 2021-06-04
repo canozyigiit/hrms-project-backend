@@ -41,7 +41,7 @@ public class Resume {
     private LocalDate createdDate = LocalDate.now();
 
     @Column(name="updated_date")
-    private LocalDate updatedDate;
+    private LocalDate updatedDate = null;
 
     @Column(name="is_active")
     @JsonIgnore

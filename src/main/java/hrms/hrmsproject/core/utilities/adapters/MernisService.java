@@ -1,4 +1,4 @@
-package hrms.hrmsproject.adapters;
+package hrms.hrmsproject.core.utilities.adapters;
 
 import Mernis.DAGKPSPublicSoap;
 import hrms.hrmsproject.entities.concretes.JobSeeker;

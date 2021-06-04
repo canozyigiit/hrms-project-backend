@@ -1,17 +1,15 @@
 package hrms.hrmsproject.api.controllers;
 
-import hrms.hrmsproject.business.abstracts.JobSeekerService;
+import hrms.hrmsproject.business.abstracts.TechnologyService;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.ErrorDataResult;
-import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.entities.concretes.JobSeeker;
+import hrms.hrmsproject.entities.dtos.technologyDtos.TechnologyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -19,39 +17,24 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/jobsekeers")
-public class JobSeekersController {
-    private JobSeekerService jobSeekerService;
+@RequestMapping("api/technologies")
+public class TechnologiesControllers {
+
+    private TechnologyService technologyService;
 
     @Autowired
-    public JobSeekersController(JobSeekerService jobSeekerService) {
-        this.jobSeekerService = jobSeekerService;
+    public TechnologiesControllers(TechnologyService technologyService) {
+        this.technologyService = technologyService;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestBody JobSeeker jobSeeker) {
-        return ResponseEntity.ok(this.jobSeekerService.add(jobSeeker));
+    public ResponseEntity<?> add(@Valid @RequestBody TechnologyDto technologyDto){
+        return ResponseEntity.ok(this.technologyService.add(technologyDto));
     }
 
     @GetMapping("/getall")
-    public DataResult<List<JobSeeker>> getAll() {
-        return this.jobSeekerService.getAll();
-    }
-
-    @GetMapping("getbyid/{id}")
-    public DataResult<JobSeeker> getById(@PathVariable int id) {
-        return this.jobSeekerService.getById(id);
-    }
-
-    @PostMapping("/delete")
-    public Result delete(@RequestBody JobSeeker jobSeeker) {
-        return this.jobSeekerService.delete(jobSeeker);
-    }
-
-    @PutMapping("/addImageResume")
-    public Result addImageResume(@RequestBody MultipartFile file, @RequestParam int jobSeekerId) {
-        return this.jobSeekerService.addImageJobSeeker(file, jobSeekerId);
-
+    public DataResult<List<TechnologyDto>> getAll(){
+        return this.technologyService.getAll();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -67,4 +50,5 @@ public class JobSeekersController {
                 = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları");
         return errors;
     }
+
 }

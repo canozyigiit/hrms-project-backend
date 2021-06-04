@@ -22,7 +22,6 @@ public class Graduate {
 
     @Column(name="description")
     @NotBlank
-    @NotNull
     private String description;
 
 
