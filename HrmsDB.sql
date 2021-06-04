@@ -29,6 +29,13 @@ CREATE TABLE public.employers_verification_system_personnels
     PRIMARY KEY (id)
 );
 
+CREATE TABLE public.graduates
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    description character varying NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.job_adverts
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
@@ -43,6 +50,18 @@ CREATE TABLE public.job_adverts
     is_active boolean NOT NULL,
     salary_min integer,
     salary_max integer,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.job_experiences
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    resume_id integer NOT NULL,
+    "position" character varying NOT NULL,
+    started_date date NOT NULL,
+    ended_date date,
+    created_date date NOT NULL,
+    company_name character varying NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -62,8 +81,45 @@ CREATE TABLE public.job_seekers
     last_name character varying(50) NOT NULL,
     national_id character varying(11) NOT NULL,
     date_of_birth date NOT NULL,
-    is_verified boolean NOT NULL,
+    photo character varying,
     PRIMARY KEY (user_id)
+);
+
+CREATE TABLE public.languages
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    resume_id integer NOT NULL,
+    lang_level integer NOT NULL,
+    created_date date NOT NULL,
+    language character varying NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.resumes
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    job_seeker_id integer NOT NULL,
+    photo character varying,
+    github_link character varying,
+    linked_link character varying,
+    description character varying,
+    is_active boolean NOT NULL,
+    created_date date NOT NULL,
+    updated_date date,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.schools
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    resume_id integer NOT NULL,
+    graduate_id integer NOT NULL,
+    school_department character varying NOT NULL,
+    started_date date NOT NULL,
+    ended_date date,
+    created_date date NOT NULL,
+    school_name character varying NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.system_personnels
@@ -74,6 +130,22 @@ CREATE TABLE public.system_personnels
     PRIMARY KEY (user_id)
 );
 
+CREATE TABLE public.technologies
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    resume_id integer NOT NULL,
+    description character varying NOT NULL,
+    created_date date NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.universities
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    university_name character varying NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.users
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -81,6 +153,7 @@ CREATE TABLE public.users
     password character varying(30) NOT NULL,
     created_at date NOT NULL,
     is_active boolean NOT NULL,
+    verify boolean,
     PRIMARY KEY (id)
 );
 
@@ -131,15 +204,51 @@ ALTER TABLE public.job_adverts
     NOT VALID;
 
 
+ALTER TABLE public.job_experiences
+    ADD FOREIGN KEY (resume_id)
+    REFERENCES public.resumes (id)
+    NOT VALID;
+
+
 ALTER TABLE public.job_seekers
     ADD FOREIGN KEY (user_id)
     REFERENCES public.users (id)
     NOT VALID;
 
 
+ALTER TABLE public.languages
+    ADD FOREIGN KEY (resume_id)
+    REFERENCES public.resumes (id)
+    NOT VALID;
+
+
+ALTER TABLE public.resumes
+    ADD FOREIGN KEY (job_seeker_id)
+    REFERENCES public.job_seekers (user_id)
+    NOT VALID;
+
+
+ALTER TABLE public.schools
+    ADD FOREIGN KEY (graduate_id)
+    REFERENCES public.graduates (id)
+    NOT VALID;
+
+
+ALTER TABLE public.schools
+    ADD FOREIGN KEY (resume_id)
+    REFERENCES public.resumes (id)
+    NOT VALID;
+
+
 ALTER TABLE public.system_personnels
     ADD FOREIGN KEY (user_id)
     REFERENCES public.users (id)
+    NOT VALID;
+
+
+ALTER TABLE public.technologies
+    ADD FOREIGN KEY (resume_id)
+    REFERENCES public.resumes (id)
     NOT VALID;
 
 
