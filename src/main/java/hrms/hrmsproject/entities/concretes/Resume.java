@@ -20,6 +20,7 @@ public class Resume {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
+    //g
 
     @ManyToOne(targetEntity = JobSeeker.class)
     @JoinColumn(name = "job_seeker_id", referencedColumnName =  "user_id",nullable = false)
