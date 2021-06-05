@@ -25,12 +25,12 @@ public class JobSeekerManager implements JobSeekerService {
 
     @Autowired
     public JobSeekerManager(JobSeekerDao jobSeekerDao,MernisService mernisService,
-                            ValidateService<JobSeeker> validateService,
-                            FileService fileService) {
+                            FileService fileService,
+                            ValidateService<JobSeeker> validateService) {
         this.jobSeekerDao = jobSeekerDao;
         this.mernisService = mernisService;
-        this.validateService = validateService;
         this.fileService = fileService;
+        this.validateService = validateService;
     }
 
     @Override
@@ -58,6 +58,11 @@ public class JobSeekerManager implements JobSeekerService {
     @Override
     public DataResult<JobSeeker> getById(int id) {
         return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.findById(id).orElse(null), Messages.jobSekeerGet);
+    }
+
+    @Override
+    public Result validateJobSeeker(int id) {
+        return validateService.verifyData(this.jobSeekerDao.getById(id));
     }
 
     @Override

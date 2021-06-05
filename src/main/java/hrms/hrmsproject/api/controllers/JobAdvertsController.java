@@ -4,7 +4,6 @@ import hrms.hrmsproject.business.abstracts.JobAdvertService;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.ErrorDataResult;
 import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.entities.concretes.JobAdvert;
 import hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertAddDto;
 import hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class JobAdvertsController {
     }
 
     @GetMapping("/getall")
-    public DataResult<List<JobAdvert>> getAll() {
+    public DataResult<List<JobAdvertDto>> getAll() {
         return this.jobAdvertService.getAll();
     }
 

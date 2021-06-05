@@ -16,4 +16,6 @@ public interface EmployerService {
 
     Result delete(Employer employer);
 
+    Result validateEmployer(int id);
+
 }

@@ -1,7 +1,6 @@
 package hrms.hrmsproject.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import hrms.hrmsproject.core.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;

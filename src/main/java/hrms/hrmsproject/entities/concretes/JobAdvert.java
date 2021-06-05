@@ -1,17 +1,14 @@
 package hrms.hrmsproject.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
@@ -33,9 +30,10 @@ public class JobAdvert {
     private String description;
 
     @Column(name = "salary_min")
+    @Nullable
 //    @Min(value = 2800,message = "Min maaş değeri asgari ücretden düşük olamaz")
     private int salaryMin;
-
+    @Nullable
     @Column(name = "salary_max")
     private int salaryMax;
 

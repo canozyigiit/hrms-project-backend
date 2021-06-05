@@ -48,6 +48,11 @@ public class EmployersController {
         return this.employerService.delete(employer);
     }
 
+    @PostMapping("/validateEmployer/{id}")
+    public Result validateEmployer(@PathVariable int id){
+        return this.employerService.validateEmployer(id);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException

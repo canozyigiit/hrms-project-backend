@@ -2,11 +2,9 @@ package hrms.hrmsproject.business.concrete;
 
 import hrms.hrmsproject.business.abstracts.JobExperienceService;
 import hrms.hrmsproject.business.constants.Messages;
+import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.dtoConverter.DtoConverterService;
-import hrms.hrmsproject.core.utilities.results.DataResult;
-import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.core.utilities.results.SuccessDataResult;
-import hrms.hrmsproject.core.utilities.results.SuccessResult;
+import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.JobExperienceDao;
 import hrms.hrmsproject.entities.concretes.JobExperience;
 import hrms.hrmsproject.entities.dtos.jobExperienceDto.JobExperienceDto;
@@ -28,6 +26,10 @@ public class JobExperienceManager implements JobExperienceService {
 
     @Override
     public Result add(JobExperienceDto jobExperienceDto) {
+        Result result = BusinessRules.Run(dateCheck(jobExperienceDto));
+        if (result != null) {
+            return result;
+        }
         this.jobExperienceDao.save((JobExperience) this.dtoConverterService.dtoClassConverter(jobExperienceDto,JobExperience.class));
         return new SuccessResult(Messages.jobExperienceAdded);
     }
@@ -45,5 +47,12 @@ public class JobExperienceManager implements JobExperienceService {
     @Override
     public DataResult<List<JobExperienceDto>> getByOrderByEndedDateDesc() {
         return new SuccessDataResult<List<JobExperienceDto>>(this.dtoConverterService.dtoConverter(this.jobExperienceDao.getByOrderByEndedDateDesc(),JobExperienceDto.class));
+    }
+
+    private Result dateCheck(JobExperienceDto jobExperienceDto){
+        if(jobExperienceDto.getEndedDate().isBefore(jobExperienceDto.getStartedDate())){
+            return new ErrorResult("Başlangıç tarihi bitiş tarihinden önce olamaz");
+        }
+        return new SuccessResult();
     }
 }

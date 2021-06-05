@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 @Data
 public class JobAdvertDto implements Dto {
-    private String companyName;
-    private String name;
+    private String employerCompanyName;
+    private String jobPositionName;
     private int openPositionCount;
     private LocalDate createdDate;
     private LocalDate deadLine;

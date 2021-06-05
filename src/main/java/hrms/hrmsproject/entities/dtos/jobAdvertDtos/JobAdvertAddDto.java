@@ -3,7 +3,7 @@ package hrms.hrmsproject.entities.dtos.jobAdvertDtos;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import org.springframework.lang.Nullable;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -21,15 +21,17 @@ public class JobAdvertAddDto{
     @NotBlank
     @Size(min = 10,max = 250)
     private String description;
-    private Integer salaryMin;
-    private Integer salaryMax;
+    @Nullable
+    private int salaryMin;
+    @Nullable
+    private int salaryMax;
     private boolean isOpen;
     @NotNull
     @Min(value = 1,message = "açık iş pozisyonu adedi 1 den düşük olamaz")
     private int openPositionCount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
-    @com.sun.istack.NotNull
+    @NotNull
     @NotBlank
     private LocalDate deadLine;
 }

@@ -1,10 +1,7 @@
 package hrms.hrmsproject.entities.dtos.resumeDtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import hrms.hrmsproject.entities.concretes.JobExperience;
-import hrms.hrmsproject.entities.concretes.Language;
-import hrms.hrmsproject.entities.concretes.School;
-import hrms.hrmsproject.entities.concretes.Technology;
+import hrms.hrmsproject.entities.concretes.*;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
@@ -15,7 +12,7 @@ public class ResumeAddDto {
 
     @JsonIgnore
     private int id;
-    private int jobSeekerId;
+    private JobSeeker jobSeeker;
     private String githubLink;
     private String linkedLink;
     private String photo;

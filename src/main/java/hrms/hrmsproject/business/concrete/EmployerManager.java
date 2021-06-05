@@ -19,8 +19,9 @@ public class EmployerManager implements EmployerService {
     private ValidateService<Employer> validateService;
 
     @Autowired
-    public EmployerManager(EmployerDao employerDao) {
+    public EmployerManager(EmployerDao employerDao,ValidateService<Employer> validateService) {
         this.employerDao = employerDao;
+        this.validateService = validateService;
     }
 
     @Override
@@ -31,9 +32,13 @@ public class EmployerManager implements EmployerService {
             return result;
         }
         this.employerDao.save(employer);
-        validateService.verifyData(employer);
+
         return new SuccessResult(Messages.employerAdded);
 
+    }
+    @Override
+    public Result validateEmployer(int id){
+       return validateService.verifyData(this.employerDao.getById(id));
     }
 
     @Override
@@ -63,15 +68,6 @@ public class EmployerManager implements EmployerService {
         return new SuccessResult();
     }//Böyle email daha önce kullanılmış mı ?
 
-
-
-//    private Result checkIfEmployerFields(Employer employer) {
-//        if (employer.getEmail() == "" || employer.getCompanyName() == "" ||
-//                employer.getPassword() == "" || employer.getWebSite() == "" || employer.getEmail() == "" || employer.getPassword() == "") {
-//            return new ErrorResult(Messages.employerFieldCheck);
-//        }
-//        return new SuccessResult();
-//    }//Boş alan kontrolü
 
 //    private Result checkIfEmployerEmail(String email, String webSite) {
 //        Pattern validEmail =

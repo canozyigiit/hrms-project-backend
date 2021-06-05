@@ -44,7 +44,7 @@ public class JobExperience {
     @NotNull
     @NotBlank
     @Past
-    private LocalDate startingDate;
+    private LocalDate startedDate;
 
     @Column(name = "ended_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

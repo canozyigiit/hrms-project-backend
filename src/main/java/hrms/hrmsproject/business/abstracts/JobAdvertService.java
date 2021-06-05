@@ -14,7 +14,7 @@ public interface JobAdvertService {
     Result delete(int id);
     Result changeOpenToClose(int id);
     DataResult<JobAdvert> getById(int id);
-    DataResult<List<JobAdvert>> getAll();
+    DataResult<List<JobAdvertDto>> getAll();
     //DataResult<List<JobAdvertDto>> getAllDto();
 
     DataResult<List<JobAdvertDto>>getByisOpenTrueOrderByCreatedDateDesc();
