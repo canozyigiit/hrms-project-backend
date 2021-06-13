@@ -9,10 +9,10 @@ public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer> {
 
     List<JobAdvert> getByisOpenTrue();//Sistemdeki tüm aktif iş ilanları listele
 
+    List<JobAdvert> getByisOpenTrueAndCity_Id(int id);//Şehirde ki bütün ilanları getir
 
     List<JobAdvert> getByisOpenTrueAndEmployer_Id(int id);//Sistemde bir firmaya ait tüm aktif iş ilanları listele
 
-    //    @Query("Select new hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertDto(j.openPositionCount, j.createdDate, j.deadLine,e.companyName) From Employer e Inner Join e.jobAdverts j")
-//    List<JobAdvertDto> getJobAdvertWithEmployerDetail();
+    //@Query("Select new hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertDto(j.openPositionCount, j.createdDate, j.deadLine,e.companyName) From Employer e Inner Join e.jobAdverts j")
     List<JobAdvert> getByisOpenTrueOrderByCreatedDateDesc();//Sistemdeki tüm aktif iş ilanları tarihe göre listele
 }

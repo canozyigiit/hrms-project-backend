@@ -13,12 +13,14 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("api/jobadverts")
+@CrossOrigin
 public class JobAdvertsController {
     private JobAdvertService jobAdvertService;
 
@@ -32,7 +34,7 @@ public class JobAdvertsController {
 //        return ResponseEntity.ok(this.jobAdvertService.add(jobAdvert));
 //    }
     @PostMapping("add")
-    public ResponseEntity<?> addJobAdvert(@RequestBody JobAdvertAddDto jobAdvertAddDto) {
+    public ResponseEntity<?> addJobAdvert(@Valid @RequestBody JobAdvertAddDto jobAdvertAddDto) {
         return ResponseEntity.ok(this.jobAdvertService.add(jobAdvertAddDto));
     }
 
@@ -49,6 +51,11 @@ public class JobAdvertsController {
     @GetMapping("/getAllOpenTrueJobAdvertList")
     public DataResult<List<JobAdvertDto>> getAllOpenTrueJobAdvertList() {
         return this.jobAdvertService.getAllOpenJobAdvertList();
+    }
+
+    @GetMapping("/getAllisOpenTrueAndCity_Id")
+    public  DataResult<List<JobAdvertDto>> getAllisOpenTrueAndCity_Id(int id){
+        return  this.jobAdvertService.getAllisOpenTrueAndCity_Id(id);
     }
     @GetMapping("/getByisOpenTrueOrderByCreatedDateDesc")
     public DataResult<List<JobAdvertDto>>getByisOpenTrueOrderByCreatedDateDesc(){

@@ -20,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/jobsekeers")
+@CrossOrigin
 public class JobSeekersController {
     private JobSeekerService jobSeekerService;
 
@@ -48,8 +49,8 @@ public class JobSeekersController {
         return this.jobSeekerService.delete(jobSeeker);
     }
 
-    @PutMapping("/addImageResume")
-    public Result addImageResume(@RequestBody MultipartFile file, @RequestParam int jobSeekerId) {
+    @PutMapping("/addImageJobSeeker")
+    public Result addImageJobSeeker(@RequestBody MultipartFile file, @RequestParam int jobSeekerId) {
         return this.jobSeekerService.addImageJobSeeker(file, jobSeekerId);
 
     }

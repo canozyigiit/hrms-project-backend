@@ -1,6 +1,5 @@
 package hrms.hrmsproject.entities.dtos.schoolDtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 @Data
 public class SchoolDto {
 
-    @JsonIgnore
+
     private int id;
     @NotNull
     private int resumeId;

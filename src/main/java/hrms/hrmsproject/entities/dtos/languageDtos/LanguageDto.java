@@ -8,8 +8,6 @@ import javax.validation.constraints.*;
 @Data
 public class LanguageDto {
 
-
-    @JsonIgnore
     private int id;
     private int resumeId;
     @NotBlank

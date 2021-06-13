@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/employers")
+@CrossOrigin
 public class EmployersController {
     private EmployerService employerService;
 
@@ -51,6 +53,12 @@ public class EmployersController {
     @PostMapping("/validateEmployer/{id}")
     public Result validateEmployer(@PathVariable int id){
         return this.employerService.validateEmployer(id);
+    }
+
+    @PutMapping("/addImageEmployer")
+    public Result addImageEmployer(@RequestBody MultipartFile file, @RequestParam int employerId) {
+        return this.employerService.addImageEmployer(file, employerId);
+
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

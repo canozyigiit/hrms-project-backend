@@ -1,6 +1,5 @@
 package hrms.hrmsproject.entities.dtos.technologyDtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -10,8 +9,6 @@ import javax.validation.constraints.Size;
 @Data
 public class TechnologyDto {
 
-
-    @JsonIgnore
     private int id;
     private int resumeId;
     @NotNull

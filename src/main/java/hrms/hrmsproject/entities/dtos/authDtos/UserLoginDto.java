@@ -12,7 +12,4 @@ import lombok.EqualsAndHashCode;
 public class UserLoginDto implements Dto {
     private String email;
     private String password;
-
-
-
 }

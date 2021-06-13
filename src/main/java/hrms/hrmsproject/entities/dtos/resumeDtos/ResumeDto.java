@@ -1,6 +1,5 @@
 package hrms.hrmsproject.entities.dtos.resumeDtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import hrms.hrmsproject.entities.concretes.JobExperience;
 import hrms.hrmsproject.entities.concretes.Language;
 import hrms.hrmsproject.entities.concretes.School;
@@ -12,7 +11,7 @@ import java.util.List;
 @Data
 public class ResumeDto {
 
-    @JsonIgnore
+
     private int id;
     private int jobSeekerId;
     private String githubLink;

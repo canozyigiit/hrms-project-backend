@@ -42,6 +42,10 @@ public class Employer extends User {
     @JsonIgnore
     private boolean isVerified = false;
 
+
+    @Column(name = "photo")
+    private String photo;
+
     @JsonIgnore
     @OneToMany(mappedBy = "employer")
     private List<JobAdvert> jobAdverts;

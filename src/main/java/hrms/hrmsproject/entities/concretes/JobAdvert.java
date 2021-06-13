@@ -31,7 +31,6 @@ public class JobAdvert {
 
     @Column(name = "salary_min")
     @Nullable
-//    @Min(value = 2800,message = "Min maaş değeri asgari ücretden düşük olamaz")
     private int salaryMin;
     @Nullable
     @Column(name = "salary_max")

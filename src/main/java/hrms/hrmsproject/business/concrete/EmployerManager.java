@@ -6,22 +6,27 @@ import hrms.hrmsproject.business.abstracts.ValidateService;
 import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.results.*;
+import hrms.hrmsproject.core.utilities.uploads.FileService;
 import hrms.hrmsproject.dataAccess.abstracts.EmployerDao;
 import hrms.hrmsproject.entities.concretes.Employer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployerManager implements EmployerService {
     private EmployerDao employerDao;
     private ValidateService<Employer> validateService;
+    private FileService fileService;
 
     @Autowired
-    public EmployerManager(EmployerDao employerDao,ValidateService<Employer> validateService) {
+    public EmployerManager(EmployerDao employerDao,ValidateService<Employer> validateService, FileService fileService) {
         this.employerDao = employerDao;
         this.validateService = validateService;
+        this.fileService = fileService;
     }
 
     @Override
@@ -39,6 +44,16 @@ public class EmployerManager implements EmployerService {
     @Override
     public Result validateEmployer(int id){
        return validateService.verifyData(this.employerDao.getById(id));
+    }
+
+    @Override
+    public Result addImageEmployer(MultipartFile file, int employerId) {
+        Map<String, String> uploader = (Map<String, String>)fileService.save(file).getData();
+        String imageUrl= uploader.get("url");
+        Employer employer = employerDao.getOne(employerId);
+        employer.setPhoto(imageUrl);
+        employerDao.save(employer);
+        return new SuccessResult("Image added");
     }
 
     @Override

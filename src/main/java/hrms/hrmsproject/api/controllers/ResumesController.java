@@ -21,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/resumes")
+@CrossOrigin
 public class ResumesController {
     private ResumeService resumeService;
 
@@ -30,7 +31,7 @@ public class ResumesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Result> add(@Valid @RequestBody ResumeAddDto resumeAddDto){
+    public ResponseEntity<?> add(@Valid @RequestBody ResumeAddDto resumeAddDto){
         return ResponseEntity.ok(this.resumeService.add(resumeAddDto));
     }
 
@@ -39,9 +40,9 @@ public class ResumesController {
         return this.resumeService.getAll();
     }
 
-    @GetMapping("/getByJobSeekerId")
-    public DataResult<ResumeDto> getByJobSeekerId(int id){
-        return this.resumeService.getByJobSeekerId(id);
+    @GetMapping("/findAllByJobSeekerId")
+    public DataResult<List<ResumeDto>> findAllByJobSeekerId(int id){
+        return this.resumeService.findAllByJobSeekerId(id);
     }
 
     @PutMapping("/addImageResume")

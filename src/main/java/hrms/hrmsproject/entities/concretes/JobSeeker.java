@@ -48,4 +48,7 @@ public class JobSeeker extends User {
     @Column(name="photo")
     private String photo;
 
+    @Column(name="job")
+    private String job;
+
 }

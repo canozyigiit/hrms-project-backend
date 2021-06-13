@@ -49,8 +49,8 @@ public class ResumeManager implements ResumeService {
     }
 
     @Override
-    public DataResult<ResumeDto> getByJobSeekerId(int id) {
-        return new SuccessDataResult<ResumeDto>((ResumeDto) this.dtoConverterService.dtoClassConverter(resumeDao.getByJobSeekerId(id),ResumeDto.class));
+    public DataResult<List<ResumeDto>> findAllByJobSeekerId(int id) {
+        return new SuccessDataResult<List<ResumeDto>>(this.dtoConverterService.dtoConverter(resumeDao.findAllByJobSeekerId(id),ResumeDto.class));
     }
 
     public Result addImageResume(MultipartFile file, int resumeId) {

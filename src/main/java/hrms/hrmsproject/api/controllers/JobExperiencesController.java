@@ -3,7 +3,6 @@ package hrms.hrmsproject.api.controllers;
 import hrms.hrmsproject.business.abstracts.JobExperienceService;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.ErrorDataResult;
-import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.dtos.jobExperienceDto.JobExperienceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/jobexperience")
+@CrossOrigin
 public class JobExperiencesController {
     private JobExperienceService jobExperienceService;
 
@@ -28,7 +28,7 @@ public class JobExperiencesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Result> add(@Valid @RequestBody JobExperienceDto jobExperienceDto){
+    public ResponseEntity<?> add(@Valid @RequestBody JobExperienceDto jobExperienceDto){
         return ResponseEntity.ok(jobExperienceService.add(jobExperienceDto)) ;
     }
 

@@ -3,7 +3,6 @@ package hrms.hrmsproject.api.controllers;
 import hrms.hrmsproject.business.abstracts.LanguageService;
 import hrms.hrmsproject.core.utilities.results.DataResult;
 import hrms.hrmsproject.core.utilities.results.ErrorDataResult;
-import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.dtos.languageDtos.LanguageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/languages")
+@CrossOrigin
 public class LanguagesController {
     private LanguageService languageService;
 
@@ -28,7 +28,7 @@ public class LanguagesController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Result> add(@Valid @RequestBody LanguageDto languageDto){
+    public ResponseEntity<?> add(@Valid @RequestBody LanguageDto languageDto){
         return ResponseEntity.ok(this.languageService.add(languageDto));
     }
 
