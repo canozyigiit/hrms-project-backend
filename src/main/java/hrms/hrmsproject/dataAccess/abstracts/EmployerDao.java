@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface EmployerDao extends JpaRepository<Employer,Integer> {
     List<Employer> findAllByEmail(String email);
+    boolean existsByCompanyName(String companyName);
+    Employer getByCompanyName(String companyName);
 }

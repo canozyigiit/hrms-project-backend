@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface JobAdvertDao extends JpaRepository<JobAdvert, Integer> {
 
+    boolean existsById(int id);
     List<JobAdvert> getByisOpenTrue();//Sistemdeki tüm aktif iş ilanları listele
 
     List<JobAdvert> getByisOpenTrueAndCity_Id(int id);//Şehirde ki bütün ilanları getir

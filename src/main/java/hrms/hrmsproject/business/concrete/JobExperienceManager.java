@@ -45,8 +45,8 @@ public class JobExperienceManager implements JobExperienceService {
     }
 
     @Override
-    public DataResult<List<JobExperienceDto>> getByOrderByEndedDateDesc() {
-        return new SuccessDataResult<List<JobExperienceDto>>(this.dtoConverterService.dtoConverter(this.jobExperienceDao.getByOrderByEndedDateDesc(),JobExperienceDto.class));
+    public DataResult<List<JobExperienceDto>> findAllByResumeIdOrderByEndedDateDesc(int id) {
+        return new SuccessDataResult<List<JobExperienceDto>>(this.dtoConverterService.dtoConverter(this.jobExperienceDao.findAllByResumeIdOrderByEndedDateDesc(id),JobExperienceDto.class));
     }
 
     private Result dateCheck(JobExperienceDto jobExperienceDto){

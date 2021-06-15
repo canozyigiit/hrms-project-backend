@@ -41,4 +41,6 @@ public class LanguageManager implements LanguageService {
     public DataResult<Language> getById(int id) {
         return new SuccessDataResult<Language>(this.languageDao.findById(id).orElse(null),Messages.languageGet);
     }
+
+
 }

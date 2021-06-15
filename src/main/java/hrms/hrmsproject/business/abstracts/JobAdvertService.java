@@ -13,7 +13,7 @@ public interface JobAdvertService {
     Result update(JobAdvert jobAdvert);
     Result delete(int id);
     Result changeOpenToClose(int id);
-    DataResult<JobAdvert> getById(int id);
+    DataResult<JobAdvertDto> getById(int id);
     DataResult<List<JobAdvertDto>> getAll();
     DataResult<List<JobAdvertDto>> getAllisOpenTrueAndCity_Id(int id);
     //DataResult<List<JobAdvertDto>> getAllDto();

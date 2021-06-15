@@ -25,6 +25,10 @@ public class JobAdvertAddDto{
     private int salaryMin;
     @Nullable
     private int salaryMax;
+    @NotNull
+    private int jobTypeId;
+    @NotNull
+    private int jobStyleId;
     private boolean isOpen;
     @NotNull
     @Min(value = 1,message = "açık iş pozisyonu adedi 1 den düşük olamaz")

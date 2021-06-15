@@ -1,6 +1,6 @@
 package hrms.hrmsproject.entities.concretes;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,36 +9,26 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Entity
+@Table(name = "job_styles")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "job_positions")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdverts"})
-public class JobPosition {
+public class JobStyle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name",unique = true)
     @NotBlank
-    @Size(min = 2,max = 100)
+    @Size(min = 2,max = 50)
     private String name;
 
-    @Column(name= "created_date")
-    @JsonIgnore
-    private LocalDate createdDate = LocalDate.now();
-
-    @Column(name= "is_active")
-    @JsonIgnore
-    private boolean isActive = true;
-
-    @OneToMany(mappedBy = "jobPosition")
+    @OneToMany(mappedBy = "jobStyle")
     private List<JobAdvert> jobAdverts;
-
 }

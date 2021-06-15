@@ -37,6 +37,10 @@ public class JobAdvertsController {
     public ResponseEntity<?> addJobAdvert(@Valid @RequestBody JobAdvertAddDto jobAdvertAddDto) {
         return ResponseEntity.ok(this.jobAdvertService.add(jobAdvertAddDto));
     }
+    @GetMapping("getbyid/{id}")
+    public ResponseEntity<?> getById(@PathVariable int id){
+        return ResponseEntity.ok(this.jobAdvertService.getById(id));
+    }
 
     @GetMapping("/getall")
     public DataResult<List<JobAdvertDto>> getAll() {

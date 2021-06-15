@@ -37,13 +37,14 @@ public class EmployerManager implements EmployerService {
             return result;
         }
         this.employerDao.save(employer);
-
+        this.validateService.verifyData(this.employerDao.getOne(employer.getId()));
         return new SuccessResult(Messages.employerAdded);
 
     }
     @Override
     public Result validateEmployer(int id){
        return validateService.verifyData(this.employerDao.getById(id));
+
     }
 
     @Override

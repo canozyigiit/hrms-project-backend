@@ -44,6 +44,12 @@ public class SchoolManager implements SchoolService {
         return new SuccessDataResult<School>( this.schoolDao.findById(id).orElse(null),Messages.schoolGet);
     }
 
+    @Override
+    public DataResult<List<SchoolDto>> findAllByResumeIdOrderByEndedDateDesc(int id) {
+        return new SuccessDataResult<List<SchoolDto>>(dtoConverterService.dtoConverter(schoolDao.findAllByResumeIdOrderByEndedDateDesc(id), SchoolDto.class));
+
+    }
+
     private Result dateCheck(SchoolDto schoolDto){
         if(schoolDto.getEndedDate().isBefore(schoolDto.getStartedDate())){
             return new ErrorResult("Başlangıç tarihi bitiş tarihinden önce olamaz");

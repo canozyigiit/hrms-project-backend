@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SchoolDao extends JpaRepository<School,Integer> {
 
-    List<School> getByOrderByEndedDateDesc();
+    List<School> findAllByResumeIdOrderByEndedDateDesc(int id);
 }

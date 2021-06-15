@@ -46,6 +46,7 @@ public class JobSeekerManager implements JobSeekerService {
             return new ErrorResult(Messages.notRealPerson);
         }
         this.jobSeekerDao.save(jobSeeker);
+        this.validateService.verifyData(this.jobSeekerDao.getOne(jobSeeker.getId()));
         return new SuccessResult(Messages.jobSekeerAdded);
     }
 

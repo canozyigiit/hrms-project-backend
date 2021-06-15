@@ -38,8 +38,8 @@ public class JobExperiencesController {
     }
 
     @GetMapping("/getByOrderByEndedDateDesc")
-    public DataResult<List<JobExperienceDto>> getByOrderByEndedDateDesc(){
-        return this.jobExperienceService.getByOrderByEndedDateDesc();
+    public DataResult<List<JobExperienceDto>> findAllByResumeIdOrderByEndedDateDesc(@PathVariable int id){
+        return this.jobExperienceService.findAllByResumeIdOrderByEndedDateDesc(id);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

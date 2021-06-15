@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface JobExperienceDao extends JpaRepository<JobExperience,Integer> {
 
-    List<JobExperience> getByOrderByEndedDateDesc();
+    List<JobExperience> findAllByResumeIdOrderByEndedDateDesc(int id);
 }

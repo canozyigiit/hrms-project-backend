@@ -62,17 +62,34 @@ public class JobAdvert {
     @JsonIgnore
     private boolean isActive = true;
 
+    @Column(name = "is_confirmed")
+    private boolean isConfirmed = false;
 
-    @ManyToOne(targetEntity = JobPosition.class ,fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "job_position_id", referencedColumnName =  "id" ,nullable = false)
+    @NotNull
+    @ManyToOne()
+    @JoinColumn(name = "job_type_id")
+    private JobType jobType;
+
+    @NotNull
+    @ManyToOne()
+    @JoinColumn(name = "job_style_id")
+    private JobStyle jobStyle;
+
+    @NotNull
+    @ManyToOne()
+    @JoinColumn(name = "job_position_id")
     private JobPosition jobPosition;
 
-    @ManyToOne(targetEntity = Employer.class ,fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "employer_id", referencedColumnName =  "user_id" ,nullable = false)
+    @NotNull
+    @ManyToOne()
+    @JoinColumn(name = "employer_id")
     private Employer employer;
 
-    @ManyToOne(targetEntity = City.class ,fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "city_id", referencedColumnName =  "id" ,nullable = false)
+    @NotNull
+    @ManyToOne()
+    @JoinColumn(name = "city_id")
     private City city;
+
+
 
 }
