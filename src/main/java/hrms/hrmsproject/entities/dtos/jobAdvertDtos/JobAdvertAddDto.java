@@ -28,14 +28,12 @@ public class JobAdvertAddDto{
     @NotNull
     private int jobTypeId;
     @NotNull
-    private int jobStyleId;
-    private boolean isOpen;
+    private int jobWorkSpaceTypeId;
     @NotNull
     @Min(value = 1,message = "açık iş pozisyonu adedi 1 den düşük olamaz")
     private int openPositionCount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
     @NotNull
-    @NotBlank
     private LocalDate deadLine;
 }

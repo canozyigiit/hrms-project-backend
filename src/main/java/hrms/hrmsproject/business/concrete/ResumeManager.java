@@ -53,6 +53,12 @@ public class ResumeManager implements ResumeService {
         return new SuccessDataResult<List<ResumeDto>>(this.dtoConverterService.dtoConverter(resumeDao.findAllByJobSeekerId(id),ResumeDto.class));
     }
 
+    @Override
+    public DataResult<ResumeDto> getByJobSeeker_Id(int id) {
+
+        return new SuccessDataResult<ResumeDto>((ResumeDto) this.dtoConverterService.dtoClassConverter(resumeDao.findByJobSeekerId(id),ResumeDto.class));
+    }
+
     public Result addImageResume(MultipartFile file, int resumeId) {
 
         Map<String, String> uploader = (Map<String, String>)fileService.save(file).getData();

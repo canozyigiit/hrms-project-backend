@@ -18,6 +18,7 @@ public interface ResumeService {
     DataResult<Resume> getById(int id);
 
     DataResult<List<ResumeDto>> findAllByJobSeekerId(int id);
+    DataResult<ResumeDto> getByJobSeeker_Id(int id);
 
     Result addImageResume(MultipartFile file, int resumeId);
 }

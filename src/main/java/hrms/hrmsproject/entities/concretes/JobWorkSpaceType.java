@@ -13,11 +13,11 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "job_styles")
+@Table(name = "job_workspace_types")
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdverts"})
-public class JobStyle {
+public class JobWorkSpaceType {
 
     @Id
     @Column(name = "id")
@@ -29,6 +29,6 @@ public class JobStyle {
     @Size(min = 2,max = 50)
     private String name;
 
-    @OneToMany(mappedBy = "jobStyle")
+    @OneToMany(mappedBy = "jobWorkSpaceType")
     private List<JobAdvert> jobAdverts;
 }

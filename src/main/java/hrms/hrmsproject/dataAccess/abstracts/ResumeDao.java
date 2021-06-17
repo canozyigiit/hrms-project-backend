@@ -8,4 +8,6 @@ import java.util.List;
 public interface ResumeDao extends  JpaRepository<Resume,Integer> {
 
     List<Resume> findAllByJobSeekerId(int id);
+
+    Resume findByJobSeekerId(int id);
 }

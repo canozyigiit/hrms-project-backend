@@ -48,20 +48,12 @@ public class ResumesController {
     @PutMapping("/addImageResume")
     public Result addImageResume(@RequestBody MultipartFile file, @RequestParam int resumeId) {
         return this.resumeService.addImageResume(file, resumeId);
-
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDataResult<Object> handleValidationException
-            (MethodArgumentNotValidException exceptions) {
-        Map<String, String> validationErrors = new HashMap<String, String>();
-        for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
-            validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
-        }
-
-        ErrorDataResult<Object> errors
-                = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları");
-        return errors;
+    @GetMapping("/getByJobSeeker_Id")
+    public DataResult<ResumeDto> getByJobSeeker_Id( int id){
+        return this.resumeService.getByJobSeeker_Id(id);
     }
+
+
 }

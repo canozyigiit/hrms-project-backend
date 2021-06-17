@@ -5,7 +5,6 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -44,7 +43,6 @@ public class User {
 
     @JsonIgnore
     @Column(name="verify")
-    @Nullable
     private boolean verify = false;
 
     @Column(name = "is_active")

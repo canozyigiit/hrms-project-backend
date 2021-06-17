@@ -55,7 +55,7 @@ public class Employer extends User {
     @JsonProperty(access = Access.READ_ONLY)
     private String photo;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "employer")
     private List<JobAdvert> jobAdverts;
 

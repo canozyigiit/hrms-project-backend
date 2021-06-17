@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -42,10 +41,9 @@ public class JobAdvert {
     private int openPositionCount;
 
     @Column(name = "deadline")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
     @NotNull
-    @NotBlank
     private LocalDate  deadLine;
 
 
@@ -54,9 +52,8 @@ public class JobAdvert {
     private LocalDate createdDate = LocalDate.now();
 
     @Column(name = "is_open")
-    @NotNull
-    @NotBlank
-    private boolean isOpen;
+    @JsonIgnore
+    private boolean isOpen = true;
 
     @Column(name = "is_active")
     @JsonIgnore
@@ -72,8 +69,8 @@ public class JobAdvert {
 
     @NotNull
     @ManyToOne()
-    @JoinColumn(name = "job_style_id")
-    private JobStyle jobStyle;
+    @JoinColumn(name = "job_workspace_type_id")
+    private JobWorkSpaceType jobWorkSpaceType;
 
     @NotNull
     @ManyToOne()

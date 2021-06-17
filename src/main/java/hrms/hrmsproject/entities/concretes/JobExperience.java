@@ -1,8 +1,6 @@
 package hrms.hrmsproject.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,9 +24,9 @@ public class JobExperience {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JsonProperty(access = Access.WRITE_ONLY)
-    @ManyToOne(targetEntity = Resume.class)
+    @ManyToOne()
     @JoinColumn(name = "resume_id")
+    @JsonIgnore
     private Resume resume;
 
     @Column(name = "company_name")

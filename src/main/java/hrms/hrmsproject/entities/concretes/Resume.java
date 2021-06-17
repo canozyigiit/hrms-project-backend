@@ -1,6 +1,7 @@
 package hrms.hrmsproject.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +16,16 @@ import java.util.List;
 @Table(name="resumes")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","languages","technologies","schools","jobExperiences"})
+
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
-    @ManyToOne(targetEntity = JobSeeker.class)
-    @JoinColumn(name = "job_seeker_id", referencedColumnName =  "user_id",nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "job_seeker_id")
     private JobSeeker jobSeeker;
 
     @Column(name="github_link")
@@ -43,6 +46,7 @@ public class Resume {
     private LocalDate createdDate = LocalDate.now();
 
     @Column(name="updated_date")
+    @JsonIgnore
     private LocalDate updatedDate = null;
 
     @Column(name="is_active")
@@ -50,15 +54,15 @@ public class Resume {
     private boolean isActive=true;
 
 
-    @OneToMany(mappedBy = "resume" )
+    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL )
     private List<Language> languages;
 
-    @OneToMany(mappedBy = "resume" )
+    @OneToMany(mappedBy = "resume",cascade = CascadeType.ALL )
     private List<Technology> technologies;
 
-    @OneToMany(mappedBy = "resume" )
+    @OneToMany(mappedBy = "resume",cascade = CascadeType.ALL )
     private List<School> schools;
 
-    @OneToMany(mappedBy = "resume" )
+    @OneToMany(mappedBy = "resume",cascade = CascadeType.ALL )
     private List<JobExperience> jobExperiences;
 }

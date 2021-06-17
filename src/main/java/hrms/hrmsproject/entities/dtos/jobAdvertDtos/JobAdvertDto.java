@@ -10,11 +10,12 @@ public class JobAdvertDto  {
     private int id;
     private String employerCompanyName;
     private String employerPhoto;
+    private int employerId;
     private String jobPositionName;
     private String description;
     private int openPositionCount;
     private String jobTypeType;
-    private String jobStyleName;
+    private String jobWorkSpaceTypeName;
     private String cityName;
     private LocalDate createdDate;
     private LocalDate deadLine;
