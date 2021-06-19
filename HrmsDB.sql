@@ -10,23 +10,36 @@ CREATE TABLE public.cities
     PRIMARY KEY (id)
 );
 
+CREATE TABLE public.confirm_employer
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    system_personnel_id integer NOT NULL,
+    employer_id integer NOT NULL,
+    confirmed_date date NOT NULL,
+    is_confirmed boolean,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.confirm_job_advert
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    job_advert_id integer NOT NULL,
+    system_personnel_id integer NOT NULL,
+    confirmed_date date NOT NULL,
+    is_confirmed boolean NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE public.employers
 (
     user_id integer NOT NULL,
     website character varying(100) NOT NULL,
     phone character varying(50) NOT NULL,
     company_name character varying(100) NOT NULL,
-    is_verified boolean NOT NULL,
+    is_confirmed boolean NOT NULL,
+    photo character varying,
+    location character varying,
     PRIMARY KEY (user_id)
-);
-
-CREATE TABLE public.employers_verification_system_personnels
-(
-    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
-    system_personnel_id integer NOT NULL,
-    employer_id integer NOT NULL,
-    created_date date NOT NULL,
-    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.graduates
@@ -38,7 +51,7 @@ CREATE TABLE public.graduates
 
 CREATE TABLE public.job_adverts
 (
-    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     job_position_id integer NOT NULL,
     city_id integer NOT NULL,
     employer_id integer NOT NULL,
@@ -50,6 +63,9 @@ CREATE TABLE public.job_adverts
     is_active boolean NOT NULL,
     salary_min integer,
     salary_max integer,
+    job_type_id integer,
+    job_workspace_type_id integer,
+    is_confirmed boolean NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -82,7 +98,22 @@ CREATE TABLE public.job_seekers
     national_id character varying(11) NOT NULL,
     date_of_birth date NOT NULL,
     photo character varying,
+    job character varying,
     PRIMARY KEY (user_id)
+);
+
+CREATE TABLE public.job_types
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    type character varying NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE public.job_workspace_types
+(
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9999999 CACHE 1 ),
+    name character varying NOT NULL,
+    PRIMARY KEY (id)
 );
 
 CREATE TABLE public.languages
@@ -168,21 +199,33 @@ CREATE TABLE public.verification_codes
     PRIMARY KEY (id)
 );
 
-ALTER TABLE public.employers
-    ADD FOREIGN KEY (user_id)
-    REFERENCES public.users (id)
-    NOT VALID;
-
-
-ALTER TABLE public.employers_verification_system_personnels
+ALTER TABLE public.confirm_employer
     ADD FOREIGN KEY (system_personnel_id)
     REFERENCES public.system_personnels (user_id)
     NOT VALID;
 
 
-ALTER TABLE public.employers_verification_system_personnels
+ALTER TABLE public.confirm_employer
     ADD FOREIGN KEY (employer_id)
     REFERENCES public.employers (user_id)
+    NOT VALID;
+
+
+ALTER TABLE public.confirm_job_advert
+    ADD FOREIGN KEY (system_personnel_id)
+    REFERENCES public.system_personnels (user_id)
+    NOT VALID;
+
+
+ALTER TABLE public.confirm_job_advert
+    ADD FOREIGN KEY (job_advert_id)
+    REFERENCES public.job_adverts (id)
+    NOT VALID;
+
+
+ALTER TABLE public.employers
+    ADD FOREIGN KEY (user_id)
+    REFERENCES public.users (id)
     NOT VALID;
 
 
@@ -201,6 +244,18 @@ ALTER TABLE public.job_adverts
 ALTER TABLE public.job_adverts
     ADD FOREIGN KEY (job_position_id)
     REFERENCES public.job_positions (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_adverts
+    ADD FOREIGN KEY (job_workspace_type_id)
+    REFERENCES public.job_workspace_types (id)
+    NOT VALID;
+
+
+ALTER TABLE public.job_adverts
+    ADD FOREIGN KEY (job_type_id)
+    REFERENCES public.job_types (id)
     NOT VALID;
 
 
