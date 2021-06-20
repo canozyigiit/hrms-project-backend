@@ -12,7 +12,7 @@
 
 ##  Database Models <img src=https://github.com/canozyigiit/canozyigiit/blob/main/database.png>
 
-![datebaseTables](https://github.com/canozyigiit/HrmsProject-Backend/blob/master/Hrms.png)
+![datebaseTables](https://github.com/canozyigiit/HrmsProject/blob/master/HrmsDB.png)
 
 ## License <img src="https://img.icons8.com/doodle/24/000000/document.png"/>
 This project is licensed under the MIT License - see the [License](https://github.com/canozyigiit/HrmsProject-Backend/blob/master/LICENSE) file for details
