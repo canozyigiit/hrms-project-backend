@@ -80,6 +80,11 @@ public class JobAdvertManager implements JobAdvertService {
         return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(this.jobAdvertDao.getByisOpenTrueAndCity_Id(id),JobAdvertDto.class));
     }
 
+    @Override
+    public DataResult<List<JobAdvertDto>> getByisConfirmedTrue() {
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(this.jobAdvertDao.getByisConfirmedTrue(),JobAdvertDto.class));
+    }
+
 
     @Override
     public DataResult<List<JobAdvertDto>> getByisOpenTrueOrderByCreatedDateDesc() {

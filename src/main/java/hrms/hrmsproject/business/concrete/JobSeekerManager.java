@@ -20,13 +20,14 @@ import java.util.Map;
 public class JobSeekerManager implements JobSeekerService {
     private JobSeekerDao jobSeekerDao;
     private MernisService mernisService;
-    private ValidateService<JobSeeker> validateService;
+    private ValidateService validateService;
     private FileService fileService;
 
     @Autowired
     public JobSeekerManager(JobSeekerDao jobSeekerDao,MernisService mernisService,
                             FileService fileService,
-                            ValidateService<JobSeeker> validateService) {
+                           ValidateService validateService
+    ) {
         this.jobSeekerDao = jobSeekerDao;
         this.mernisService = mernisService;
         this.fileService = fileService;
@@ -46,7 +47,7 @@ public class JobSeekerManager implements JobSeekerService {
             return new ErrorResult(Messages.notRealPerson);
         }
         this.jobSeekerDao.save(jobSeeker);
-        this.validateService.verifyData(this.jobSeekerDao.getOne(jobSeeker.getId()));
+         this.validateService.verifyData(jobSeeker.getId());
         return new SuccessResult(Messages.jobSekeerAdded);
     }
 
@@ -60,10 +61,7 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.findById(id).orElse(null), Messages.jobSekeerGet);
     }
 
-    @Override
-    public Result validateJobSeeker(int id) {
-        return validateService.verifyData(this.jobSeekerDao.getById(id));
-    }
+
 
     @Override
     public Result delete(JobSeeker jobSeeker) {

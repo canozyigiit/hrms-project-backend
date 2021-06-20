@@ -25,7 +25,7 @@ public class JobAdvert {
 
     @Column(name = "description")
     @NotBlank
-    @Size(min = 10,max = 250)
+    @Size(min = 2, max = 250)
     private String description;
 
     @Column(name = "salary_min")
@@ -36,7 +36,7 @@ public class JobAdvert {
     private int salaryMax;
 
     @Column(name = "open_position_count")
-    @Min(value = 1,message = "açık iş pozisyonu adedi 1 den düşük olamaz")
+    @Min(value = 1, message = "açık iş pozisyonu adedi 1 den düşük olamaz")
     @NotNull
     private int openPositionCount;
 
@@ -44,7 +44,7 @@ public class JobAdvert {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
     @NotNull
-    private LocalDate  deadLine;
+    private LocalDate deadLine;
 
 
     @Column(name = "created_date")
@@ -52,15 +52,16 @@ public class JobAdvert {
     private LocalDate createdDate = LocalDate.now();
 
     @Column(name = "is_open")
-    @JsonIgnore
-    private boolean isOpen = true;
+
+    private boolean isOpen;
 
     @Column(name = "is_active")
-    @JsonIgnore
-    private boolean isActive = true;
+
+    private boolean isActive;
 
     @Column(name = "is_confirmed")
-    private boolean isConfirmed = false;
+
+    private boolean isConfirmed;
 
     @NotNull
     @ManyToOne()
@@ -86,7 +87,6 @@ public class JobAdvert {
     @ManyToOne()
     @JoinColumn(name = "city_id")
     private City city;
-
 
 
 }

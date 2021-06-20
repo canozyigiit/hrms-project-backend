@@ -7,4 +7,6 @@ public interface EmailVerificationCodeDao extends JpaRepository<EmailVerificatio
 
     EmailVerificationCode getByEmailVerificationCode(String Code);
     boolean existsByEmailVerificationCode(String Code);
+
+    EmailVerificationCode getByUserId(int id);
 }

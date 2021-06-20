@@ -31,7 +31,8 @@ public class ConfirmEmployerManager implements ConfirmEmployerService {
 
 
     @Override
-    public Result confirmUser(String companyName,int systemPersonnelId) {
+    public Result confirmEmployer(String companyName, int systemPersonnelId) {
+
         if (!employerDao.existsByCompanyName(companyName)) {
             return new ErrorResult("Şirket bulunamadı");
         }

@@ -17,7 +17,7 @@ public interface EmployerService {
 
     Result delete(Employer employer);
 
-    Result validateEmployer(int id);
+
     Result addImageEmployer(MultipartFile file, int employerId);
 
 }

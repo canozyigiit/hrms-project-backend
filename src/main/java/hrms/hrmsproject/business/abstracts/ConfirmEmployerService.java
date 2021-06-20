@@ -5,5 +5,5 @@ import hrms.hrmsproject.core.utilities.results.Result;
 public interface ConfirmEmployerService {
 
 
-    Result confirmUser(String companyName,int systemPersonnelId);
+    Result confirmEmployer(String companyName, int systemPersonnelId);
 }

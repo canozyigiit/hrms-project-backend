@@ -19,11 +19,13 @@ import java.util.Map;
 @Service
 public class EmployerManager implements EmployerService {
     private EmployerDao employerDao;
-    private ValidateService<Employer> validateService;
+    private ValidateService validateService;
     private FileService fileService;
 
     @Autowired
-    public EmployerManager(EmployerDao employerDao,ValidateService<Employer> validateService, FileService fileService) {
+    public EmployerManager(EmployerDao employerDao,
+                           ValidateService validateService,
+                           FileService fileService) {
         this.employerDao = employerDao;
         this.validateService = validateService;
         this.fileService = fileService;
@@ -37,15 +39,11 @@ public class EmployerManager implements EmployerService {
             return result;
         }
         this.employerDao.save(employer);
-        this.validateService.verifyData(this.employerDao.getOne(employer.getId()));
+        this.validateService.verifyData(employer.getId());
         return new SuccessResult(Messages.employerAdded);
 
     }
-    @Override
-    public Result validateEmployer(int id){
-       return validateService.verifyData(this.employerDao.getById(id));
 
-    }
 
     @Override
     public Result addImageEmployer(MultipartFile file, int employerId) {

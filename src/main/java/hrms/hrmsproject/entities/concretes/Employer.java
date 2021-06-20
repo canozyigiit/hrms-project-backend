@@ -36,12 +36,12 @@ public class Employer extends User {
     @Column(name = "website")
     @NotBlank
     @Size(min = 2,max = 100)
-    @Pattern(regexp = "(www)?\\.?[a-zA-Z0-9]+\\.?[a-zA-Z]{2,}")
+    @Pattern(regexp = "(www)?\\.?[a-zA-Z0-9]+\\.?[a-zA-Z]{2,}",message = "Website is not valid.")
     private String webSite;
 
     @Column(name = "phone")
     @NotBlank
-    @Pattern(regexp ="^(\\d{3}[- .]?){2}\\d{4}$",message = "Telefon numarasını düzgün değil.(Ör:***-***-**** )")
+    @Pattern(regexp ="^(\\d{3}[- .]?){2}\\d{4}$",message = "Phone number is not valid.(Ör:***-***-**** )")
     private String phone;
 
     @Column(name = "is_confirmed")

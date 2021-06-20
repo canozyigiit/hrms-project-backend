@@ -17,7 +17,7 @@ public interface JobAdvertService {
     DataResult<List<JobAdvertDto>> getAll();
     DataResult<List<JobAdvertDto>> getAllisOpenTrueAndCity_Id(int id);
     //DataResult<List<JobAdvertDto>> getAllDto();
-
+    DataResult<List<JobAdvertDto>> getByisConfirmedTrue();
     DataResult<List<JobAdvertDto>>getByisOpenTrueOrderByCreatedDateDesc();
     DataResult<List<JobAdvertDto>> getAllOpenJobAdvertList();
     DataResult<List<JobAdvertDto>> getByisOpenTrueAndEmployer_Id(int id);

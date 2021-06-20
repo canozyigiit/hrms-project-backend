@@ -17,6 +17,6 @@ public class ConfirmEmployersController {
     @PutMapping("/{companyName}")
     public Result update(@PathVariable("companyName") String companyName,int systemPersonnelId) {
 
-        return confirmEmployerService.confirmUser(companyName,systemPersonnelId);
+        return confirmEmployerService.confirmEmployer(companyName,systemPersonnelId);
     }
 }

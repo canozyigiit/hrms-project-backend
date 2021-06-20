@@ -28,6 +28,7 @@ public class ConfirmJobAdvertManager implements ConfirmJobAdvertService {
 
     @Override
     public Result confirmJobAdvert(int jobAdvertId, int systemPersonnelId) {
+
         if (!jobAdvertDao.existsById(jobAdvertId)) {
             return new ErrorResult("İlan Bulunamadı");
         }

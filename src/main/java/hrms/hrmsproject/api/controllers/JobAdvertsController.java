@@ -23,10 +23,6 @@ public class JobAdvertsController {
         this.jobAdvertService = jobAdvertService;
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<?> add(@Valid @RequestBody JobAdvert jobAdvert) {
-//        return ResponseEntity.ok(this.jobAdvertService.add(jobAdvert));
-//    }
     @PostMapping("add")
     public ResponseEntity<?> addJobAdvert(@Valid @RequestBody JobAdvertAddDto jobAdvertAddDto) {
         return ResponseEntity.ok(this.jobAdvertService.add(jobAdvertAddDto));
@@ -34,6 +30,11 @@ public class JobAdvertsController {
     @GetMapping("getbyid/{id}")
     public ResponseEntity<?> getById(@PathVariable int id){
         return ResponseEntity.ok(this.jobAdvertService.getById(id));
+    }
+
+    @GetMapping("getByisConfirmedTrue")
+    public DataResult<List<JobAdvertDto>> getByisConfirmedTrue(){
+        return this.jobAdvertService.getByisConfirmedTrue();
     }
 
     @GetMapping("/getall")
