@@ -28,6 +28,7 @@ public class EmployerManager implements EmployerService {
     private ValidateService validateService;
     private FileService fileService;
     private ObjectMapper objectMapper;
+
     private CurrentEmployerDao currentEmployerDao;
 
     @Autowired
@@ -39,50 +40,51 @@ public class EmployerManager implements EmployerService {
         this.employerDao = employerDao;
         this.validateService = validateService;
         this.objectMapper = objectMapper;
-        this.currentEmployerDao = currentEmployerDao;
+
         this.fileService = fileService;
+        this.currentEmployerDao = currentEmployerDao;
     }
 
-    //TODO:Düzenlenecek(json)
-    @Override
-    public Result update(Employer employer) {
-        Employer emp = this.employerDao.findById(employer.getId()).orElse(null);
-        CurrentEmployer currentEmployer = currentEmployerDao.getByEmployerId(employer.getId());
-        LocalDate date = LocalDate.now();
-        if (currentEmployer != null) {
-
-            currentEmployer.setEmployerId(employer.getId());
-            currentEmployer.setEmail(employer.getEmail());
-            currentEmployer.setPhone(employer.getPhone());
-            currentEmployer.setCity(employer.getCity());
-            currentEmployer.setPhoto(employer.getPhoto());
-            currentEmployer.setWebSite(employer.getWebSite());
-            currentEmployer.setSince(employer.getSince());
-            currentEmployer.setTeamSize(employer.getTeamSize());
-            currentEmployer.setCompanyName(employer.getCompanyName());
-            this.currentEmployerDao.save(currentEmployer);
-            emp.setUpdated(true);
-            emp.setUpdatedDate(date);
-            this.employerDao.save(emp);
-            return new SuccessResult("Güncelleme isteği sistem tarafından incelenip onaylanacaktır.");
-        } else {
-            CurrentEmployer newCurrentEmployer = new CurrentEmployer();
-            newCurrentEmployer.setEmployerId(employer.getId());
-            newCurrentEmployer.setEmail(employer.getEmail());
-            newCurrentEmployer.setPhone(employer.getPhone());
-            newCurrentEmployer.setCity(employer.getCity());
-            newCurrentEmployer.setPhoto(employer.getPhoto());
-            newCurrentEmployer.setWebSite(employer.getWebSite());
-            newCurrentEmployer.setSince(employer.getSince());
-            newCurrentEmployer.setTeamSize(employer.getTeamSize());
-            newCurrentEmployer.setCompanyName(employer.getCompanyName());
-            emp.setUpdated(true);
-            emp.setUpdatedDate(date);
-            this.employerDao.save(emp);
-            this.currentEmployerDao.save(newCurrentEmployer);
-            return new SuccessResult("Güncelleme isteği sistem tarafından incelenip onaylanacaktır.");
-        }
-    }
+//    //TODO:Düzenlenecek(json)
+//    @Override
+//    public Result update(Employer employer) {
+//        Employer emp = this.employerDao.findById(employer.getId()).orElse(null);
+//        CurrentEmployer currentEmployer = currentEmployerDao.getByEmployerId(employer.getId());
+//        LocalDate date = LocalDate.now();
+//        if (currentEmployer != null) {
+//
+//            currentEmployer.setEmployerId(employer.getId());
+//            currentEmployer.setEmail(employer.getEmail());
+//            currentEmployer.setPhone(employer.getPhone());
+//            currentEmployer.setCity(employer.getCity());
+//            currentEmployer.setPhoto(employer.getPhoto());
+//            currentEmployer.setWebSite(employer.getWebSite());
+//            currentEmployer.setSince(employer.getSince());
+//            currentEmployer.setTeamSize(employer.getTeamSize());
+//            currentEmployer.setCompanyName(employer.getCompanyName());
+//            this.currentEmployerDao.save(currentEmployer);
+//            emp.setUpdated(true);
+//            emp.setUpdatedDate(date);
+//            this.employerDao.save(emp);
+//            return new SuccessResult("Güncelleme isteği sistem tarafından incelenip onaylanacaktır.");
+//        } else {
+//            CurrentEmployer newCurrentEmployer = new CurrentEmployer();
+//            newCurrentEmployer.setEmployerId(employer.getId());
+//            newCurrentEmployer.setEmail(employer.getEmail());
+//            newCurrentEmployer.setPhone(employer.getPhone());
+//            newCurrentEmployer.setCity(employer.getCity());
+//            newCurrentEmployer.setPhoto(employer.getPhoto());
+//            newCurrentEmployer.setWebSite(employer.getWebSite());
+//            newCurrentEmployer.setSince(employer.getSince());
+//            newCurrentEmployer.setTeamSize(employer.getTeamSize());
+//            newCurrentEmployer.setCompanyName(employer.getCompanyName());
+//            emp.setUpdated(true);
+//            emp.setUpdatedDate(date);
+//            this.employerDao.save(emp);
+//            this.currentEmployerDao.save(newCurrentEmployer);
+//            return new SuccessResult("Güncelleme isteği sistem tarafından incelenip onaylanacaktır.");
+//        }
+//    }
 
     @Override
     public DataResult<List<Employer>> getByisConfirmedFalse() {
@@ -100,6 +102,33 @@ public class EmployerManager implements EmployerService {
         this.validateService.verifyData(employer.getId());
         return new SuccessResult(Messages.employerAdded);
 
+    }
+
+    @Override
+    public Result update(Employer employer) {
+        Employer employerToUpdate = getById(employer.getId()).getData();
+        Map<String,Object> update = this.objectMapper.convertValue(employer,Map.class);
+        CurrentEmployer currentEmployer = currentEmployerDao.getByEmployerId(employer.getId());
+        LocalDate date = LocalDate.now();
+
+        if (currentEmployer != null) {
+            employerToUpdate.setUpdatedDate(date);
+            employerToUpdate.setUpdated(true);
+            currentEmployer.setEmployerId(employer.getId());
+            currentEmployer.setData(update);
+            employerDao.save(employerToUpdate);
+            currentEmployerDao.save(currentEmployer);
+            return new SuccessResult("Güncelleme isteği sistem tarafından incelenip onaylanacaktır.");
+        }else{
+            CurrentEmployer newCurrentEmployer = new CurrentEmployer();
+            employerToUpdate.setUpdatedDate(date);
+            employerToUpdate.setUpdated(true);
+            newCurrentEmployer.setEmployerId(employer.getId());
+            newCurrentEmployer.setData(update);
+            employerDao.save(employerToUpdate);
+            currentEmployerDao.save(newCurrentEmployer);
+            return new SuccessResult("Güncelleme isteği sistem tarafından incelenip onaylanacaktır.");
+        }
     }
 
     @Override

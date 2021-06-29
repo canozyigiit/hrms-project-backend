@@ -1,42 +1,34 @@
 package hrms.hrmsproject.entities.concretes;
 
+
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
-
+import java.util.Map;
 
 @Data
 @Entity
 @Table(name = "current_employer")
 @AllArgsConstructor
 @NoArgsConstructor
+@TypeDef(name = "json", typeClass = JsonBinaryType.class)
+
 public class CurrentEmployer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name="employer_id")
+
+    @Column(name = "employer_id")
     private int employerId;
-    @Column(name="email")
-    private String email;
-    @Column(name = "company_name")
-    private String companyName;
-    @Column(name = "website")
-    private String webSite;
-    @Column(name = "phone")
-    private String phone;
-    @Column(name="team_size")
-    private int teamSize;
-    @Column(name="since")
-    private int since;
-    @Column(name = "photo")
-    private String photo;
-    @ManyToOne()
-    @JoinColumn(name = "city_id")
-    private City city;
 
-
+    @Type(type = "json")
+    @Column(name = "data")
+    private Map<String, Object> data;
 }

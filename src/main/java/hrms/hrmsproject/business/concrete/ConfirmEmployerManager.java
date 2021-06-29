@@ -1,5 +1,6 @@
 package hrms.hrmsproject.business.concrete;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hrms.hrmsproject.business.abstracts.ConfirmEmployerService;
 import hrms.hrmsproject.core.utilities.results.ErrorResult;
 import hrms.hrmsproject.core.utilities.results.Result;
@@ -16,22 +17,23 @@ public class ConfirmEmployerManager implements ConfirmEmployerService {
     private ConfirmEmployerDao confirmEmployerDao;
     private EmployerDao employerDao;
     private SystemPersonnelDao systemPersonnelDao;
+    private ObjectMapper objectMapper;
     private CurrentEmployerDao currentEmployerDao;
-    private CityDao cityDao;
 
     @Autowired
     public ConfirmEmployerManager(ConfirmEmployerDao confirmEmployerDao,
                                   EmployerDao employerDao,
                                   SystemPersonnelDao systemPersonnelDao,
+
+
                                   CurrentEmployerDao currentEmployerDao,
-                                  CityDao cityDao) {
+                                  ObjectMapper objectMapper) {
         this.confirmEmployerDao = confirmEmployerDao;
         this.employerDao = employerDao;
         this.systemPersonnelDao = systemPersonnelDao;
-        this.currentEmployerDao= currentEmployerDao;
-        this.cityDao =  cityDao;
+        this.objectMapper = objectMapper;
+        this.currentEmployerDao = currentEmployerDao;
     }
-
 
 
     @Override
@@ -51,7 +53,7 @@ public class ConfirmEmployerManager implements ConfirmEmployerService {
         employer.setConfirmed(true);
         employerDao.save(employer);
         confirmEmployer.setConfirmed(true);
-        LocalDate date= (LocalDate.now());
+        LocalDate date = (LocalDate.now());
         confirmEmployer.setConfirmedDate(date);
         confirmEmployer.setEmployer(employer);
         confirmEmployer.setSystemPersonnel(systemPersonnel);
@@ -59,35 +61,56 @@ public class ConfirmEmployerManager implements ConfirmEmployerService {
         return new SuccessResult("Doğrulama Başarılı");
     }
 
-    //TODO:Düzenlenecek(json)
+//    //TODO:Düzenlenecek(json)
+//    @Override
+//    public Result confirmUpdateEmployer(String companyName, int systemPersonnelId) {
+//        if (!employerDao.existsByCompanyName(companyName)) {
+//            return new ErrorResult("Şirket bulunamadı");
+//        }
+//        ConfirmEmployer confirmEmployer = new ConfirmEmployer();
+//        Employer employer = employerDao.getByCompanyName(companyName);
+//        CurrentEmployer currentEmployer = currentEmployerDao.getByEmployerId(employer.getId());
+//        SystemPersonnel systemPersonnel = systemPersonnelDao.getOne(systemPersonnelId);
+//        System.out.println(currentEmployer.getCity().getId());
+//        LocalDate date = LocalDate.now();
+//
+//        employer.setEmail(currentEmployer.getEmail());
+//        employer.setPhone(currentEmployer.getPhone());
+//        employer.setCity(currentEmployer.getCity());
+//        employer.setPhoto(currentEmployer.getPhoto());
+//        employer.setWebSite(currentEmployer.getWebSite());
+//        employer.setSince(currentEmployer.getSince());
+//        employer.setTeamSize(currentEmployer.getTeamSize());
+//        employer.setCompanyName(currentEmployer.getCompanyName());
+//        employer.setUpdated(false);
+//
+//        confirmEmployer.setConfirmed(true);
+//        confirmEmployer.setConfirmedDate(date);
+//        confirmEmployer.setEmployer(employer);
+//        confirmEmployer.setSystemPersonnel(systemPersonnel);
+//        confirmEmployerDao.save(confirmEmployer);
+//        employerDao.save(employer);
+//        return new SuccessResult("Güncelleme onaylandı");
+//    }
+
     @Override
     public Result confirmUpdateEmployer(String companyName, int systemPersonnelId) {
-        if (!employerDao.existsByCompanyName(companyName)) {
-            return new ErrorResult("Şirket bulunamadı");
-        }
+        Employer oldEmployer = this.employerDao.getByCompanyName(companyName);
         ConfirmEmployer confirmEmployer = new ConfirmEmployer();
-        Employer employer = employerDao.getByCompanyName(companyName);
-        CurrentEmployer currentEmployer = currentEmployerDao.getByEmployerId(employer.getId());
         SystemPersonnel systemPersonnel = systemPersonnelDao.getOne(systemPersonnelId);
-        System.out.println(currentEmployer.getCity().getId());
         LocalDate date = LocalDate.now();
+        CurrentEmployer currentEmployer = this.currentEmployerDao.getByEmployerId(oldEmployer.getId());
+        Employer employer = objectMapper.convertValue(currentEmployer.getData(), Employer.class);
 
-        employer.setEmail(currentEmployer.getEmail());
-        employer.setPhone(currentEmployer.getPhone());
-        employer.setCity(currentEmployer.getCity());
-        employer.setPhoto(currentEmployer.getPhoto());
-        employer.setWebSite(currentEmployer.getWebSite());
-        employer.setSince(currentEmployer.getSince());
-        employer.setTeamSize(currentEmployer.getTeamSize());
-        employer.setCompanyName(currentEmployer.getCompanyName());
         employer.setUpdated(false);
+        employerDao.save(employer);
 
         confirmEmployer.setConfirmed(true);
         confirmEmployer.setConfirmedDate(date);
         confirmEmployer.setEmployer(employer);
         confirmEmployer.setSystemPersonnel(systemPersonnel);
         confirmEmployerDao.save(confirmEmployer);
-        employerDao.save(employer);
-       return new SuccessResult("Güncelleme onaylandı");
+
+        return new SuccessResult("Güncelleme onaylandı");
     }
 }

@@ -56,15 +56,12 @@ public class Employer extends User {
     private int since;
 
     @Column(name = "is_confirmed")
-    @JsonIgnore
     private boolean isConfirmed = false;
 
     @Column(name = "is_updated")
-    @JsonIgnore
     private boolean isUpdated = false;
 
     @Column(name = "updated_date")
-    @JsonIgnore
     private LocalDate updatedDate ;
 
     @Column(name = "photo")
@@ -74,8 +71,6 @@ public class Employer extends User {
     @JsonIgnore
     @OneToMany(mappedBy = "employer")
     private List<JobAdvert> jobAdverts;
-
-
 
     @NotNull
     @ManyToOne()

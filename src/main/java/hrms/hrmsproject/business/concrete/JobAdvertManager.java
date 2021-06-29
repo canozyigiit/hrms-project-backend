@@ -113,14 +113,16 @@ public class JobAdvertManager implements JobAdvertService {
     }
 
     @Override
-    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name) {
-        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndJobType_Type(name),JobAdvertDto.class));
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name,int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1,7);
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndJobWorkSpaceType_Name(name,pageable),JobAdvertDto.class));
 
     }
 
     @Override
-    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type) {
-        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndJobType_Type(type),JobAdvertDto.class));
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type,int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1,7);
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndJobType_Type(type,pageable),JobAdvertDto.class));
 
     }
 

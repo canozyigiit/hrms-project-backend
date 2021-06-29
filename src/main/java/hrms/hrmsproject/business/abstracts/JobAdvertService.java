@@ -22,6 +22,6 @@ public interface JobAdvertService {
     DataResult<List<JobAdvertDto>>getByisOpenTrueOrderByCreatedDateDesc();
     DataResult<List<JobAdvertDto>> getAllOpenJobAdvertList();
     DataResult<List<JobAdvertDto>> getByisOpenTrueAndEmployer_Id(int id);
-    DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name);
-    DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type);
+    DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name,int pageNo);
+    DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type,int pageNo);
 }

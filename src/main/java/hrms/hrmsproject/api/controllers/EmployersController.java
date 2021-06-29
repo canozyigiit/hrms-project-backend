@@ -24,10 +24,7 @@ public class EmployersController {
         this.employerService = employerService;
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<?>  update(@Valid @RequestBody Employer employer){
-        return ResponseEntity.ok(this.employerService.update(employer));
-    }
+
     @GetMapping("/getall")
     public DataResult<List<Employer>> getAll() {
         return this.employerService.getAll();
@@ -69,4 +66,8 @@ public class EmployersController {
         return this.employerService.getByisUpdatedTrue();
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@Valid @RequestBody Employer employer){
+        return ResponseEntity.ok(this.employerService.update(employer));
+    }
 }

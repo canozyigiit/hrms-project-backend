@@ -78,13 +78,13 @@ public class JobAdvertsController {
     }
 
     @GetMapping("/getByisOpenTrueAndJobWorkSpaceType_Name")
-    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name){
-        return this.jobAdvertService.getByisOpenTrueAndJobType_Type(name);
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name,int pageNo){
+        return this.jobAdvertService.getByisOpenTrueAndJobWorkSpaceType_Name(name,pageNo);
     }
 
     @GetMapping("/getByisOpenTrueAndJobType_Type")
-    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type){
-        return this.jobAdvertService.getByisOpenTrueAndJobType_Type(type);
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type,int pageNo){
+        return this.jobAdvertService.getByisOpenTrueAndJobType_Type(type,pageNo);
     }
 
 

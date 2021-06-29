@@ -39,7 +39,5 @@ public class City {
     @JsonIgnore
     @OneToMany(mappedBy = "city")
     private List<Employer> employers;
-    @JsonIgnore
-    @OneToMany(mappedBy = "city")
-    private List<CurrentEmployer> currentEmployers;
+
 }
