@@ -2,9 +2,11 @@ package hrms.hrmsproject.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,6 +19,7 @@ import java.time.LocalDate;
 @Table(name = "schools")
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,6 @@ public class School {
     private int id;
 
     @ManyToOne()
-    @JsonIgnore
     @JoinColumn(name = "resume_id")
     private Resume resume;
 
@@ -37,17 +39,16 @@ public class School {
     private Graduate graduate;
 
     @Column(name = "school_department")
-    @NotBlank
     private String schoolDepartment;
 
     @Column(name = "started_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
     @NotNull
-    @NotBlank
     private LocalDate startedDate;
 
-    @Column(name = "ended_date")
+    @Nullable
+    @Column(name = "ended_date",nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endedDate;
 

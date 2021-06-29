@@ -24,9 +24,18 @@ public class EmployersController {
         this.employerService = employerService;
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?>  update(@Valid @RequestBody Employer employer){
+        return ResponseEntity.ok(this.employerService.update(employer));
+    }
     @GetMapping("/getall")
     public DataResult<List<Employer>> getAll() {
         return this.employerService.getAll();
+    }
+
+    @PostMapping("/changeEmail")
+    public Result changeEmail(@RequestParam int id, @RequestParam String email, @RequestParam String password) {
+        return this.employerService.changeEmail(id, email, password);
     }
 
     @PostMapping("/add")
@@ -50,6 +59,14 @@ public class EmployersController {
         return this.employerService.addImageEmployer(file, employerId);
 
     }
+    @GetMapping("getByisConfirmedFalse")
+    public DataResult<List<Employer>> getByisConfirmedFalse(){
+        return this.employerService.getByisConfirmedFalse();
+    }
 
+    @GetMapping("/getByisUpdatedTrue")
+    public DataResult<List<Employer>> getByisUpdatedTrue(){
+        return this.employerService.getByisUpdatedTrue();
+    }
 
 }

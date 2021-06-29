@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface SystemPersonnelService {
     Result add(SystemPersonnel systemPersonnel);
+    Result update(SystemPersonnel systemPersonnel);
+    Result changeEmail(int id,String password,String email);
+
 
     DataResult<List<SystemPersonnel>> getAll();
 

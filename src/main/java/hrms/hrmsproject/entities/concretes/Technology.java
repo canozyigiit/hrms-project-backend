@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Table(name = "technologies")
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicUpdate
 public class Technology {
 
     @Id

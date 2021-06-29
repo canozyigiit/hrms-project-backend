@@ -2,8 +2,8 @@ package hrms.hrmsproject.entities.dtos.jobExperienceDto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class JobExperienceDto {
 
     private int id;
+    @NotNull
     private int resumeId;
     @NotBlank
     private String companyName;
@@ -24,7 +25,6 @@ public class JobExperienceDto {
     @Past
     private LocalDate startedDate;
 
-    @Column(name = "ended_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Nullable
     private LocalDate endedDate;
 }

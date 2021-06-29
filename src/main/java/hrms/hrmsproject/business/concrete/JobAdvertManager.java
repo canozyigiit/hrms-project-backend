@@ -9,8 +9,9 @@ import hrms.hrmsproject.dataAccess.abstracts.JobAdvertDao;
 import hrms.hrmsproject.entities.concretes.JobAdvert;
 import hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertAddDto;
 import hrms.hrmsproject.entities.dtos.jobAdvertDtos.JobAdvertDto;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +19,13 @@ import java.util.List;
 @Service
 public class JobAdvertManager implements JobAdvertService {
     private JobAdvertDao jobAdvertDao;
-    private ModelMapper modelMapper;
+
     private DtoConverterService dtoConverterService;
 
     @Autowired
-    public JobAdvertManager(JobAdvertDao jobAdvertDao,ModelMapper modelMapper,
+    public JobAdvertManager(JobAdvertDao jobAdvertDao,
                              DtoConverterService dtoConverterService) {
         this.jobAdvertDao = jobAdvertDao;
-        this.modelMapper = modelMapper;
         this.dtoConverterService = dtoConverterService;
     }
 
@@ -76,6 +76,17 @@ public class JobAdvertManager implements JobAdvertService {
     }
 
     @Override
+    public DataResult<List<JobAdvertDto>> getByisConfirmedFalse() {
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(this.jobAdvertDao.getByisConfirmedFalse(),JobAdvertDto.class));
+    }
+
+    @Override
+    public DataResult<List<JobAdvertDto>> getAll(int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1,7);
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(this.jobAdvertDao.getByisOpenTrue(pageable),JobAdvertDto.class));
+    }
+
+    @Override
     public DataResult<List<JobAdvertDto>> getAllisOpenTrueAndCity_Id(int id) {
         return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(this.jobAdvertDao.getByisOpenTrueAndCity_Id(id),JobAdvertDto.class));
     }
@@ -101,6 +112,18 @@ public class JobAdvertManager implements JobAdvertService {
         return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndEmployer_Id(id),JobAdvertDto.class), Messages.allActivePositonsInCompany);
     }
 
+    @Override
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name) {
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndJobType_Type(name),JobAdvertDto.class));
+
+    }
+
+    @Override
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type) {
+        return new SuccessDataResult<List<JobAdvertDto>>(this.dtoConverterService.dtoConverter(jobAdvertDao.getByisOpenTrueAndJobType_Type(type),JobAdvertDto.class));
+
+    }
+
 
 //************************************************************************************************************
 
@@ -119,17 +142,5 @@ public class JobAdvertManager implements JobAdvertService {
         }
         return new SuccessResult();
     }
-
-//    private List<JobAdvertDto> dtoGenerator(List<JobAdvert> jobAdvert) {
-//        List<JobAdvertDto> jobAdvertDtos = new ArrayList<JobAdvertDto>();
-//        jobAdvert.forEach(item -> {
-//            JobAdvertDto dto = modelMapper.map(item, JobAdvertDto.class);
-//            dto.setCompanyName(item.getEmployer().getCompanyName());
-//            dto.setName(item.getJobPosition().getName());
-//            jobAdvertDtos.add(dto);
-//        });
-//        return jobAdvertDtos;
-//
-//    }
 
 }

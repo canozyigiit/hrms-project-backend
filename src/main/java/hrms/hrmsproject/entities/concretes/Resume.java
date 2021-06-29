@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","languages","technologies","schools","jobExperiences"})
-
+@DynamicUpdate
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,15 +55,15 @@ public class Resume {
     private boolean isActive=true;
 
 
-    @OneToMany(mappedBy = "resume", cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "resume")
     private List<Language> languages;
 
-    @OneToMany(mappedBy = "resume",cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "resume")
     private List<Technology> technologies;
 
-    @OneToMany(mappedBy = "resume",cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "resume")
     private List<School> schools;
 
-    @OneToMany(mappedBy = "resume",cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "resume")
     private List<JobExperience> jobExperiences;
 }

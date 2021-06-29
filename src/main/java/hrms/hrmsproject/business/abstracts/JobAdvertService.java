@@ -15,10 +15,13 @@ public interface JobAdvertService {
     Result changeOpenToClose(int id);
     DataResult<JobAdvertDto> getById(int id);
     DataResult<List<JobAdvertDto>> getAll();
+    DataResult<List<JobAdvertDto>> getByisConfirmedFalse();
+    DataResult<List<JobAdvertDto>> getAll(int pageNo);
     DataResult<List<JobAdvertDto>> getAllisOpenTrueAndCity_Id(int id);
-    //DataResult<List<JobAdvertDto>> getAllDto();
     DataResult<List<JobAdvertDto>> getByisConfirmedTrue();
     DataResult<List<JobAdvertDto>>getByisOpenTrueOrderByCreatedDateDesc();
     DataResult<List<JobAdvertDto>> getAllOpenJobAdvertList();
     DataResult<List<JobAdvertDto>> getByisOpenTrueAndEmployer_Id(int id);
+    DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name);
+    DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type);
 }

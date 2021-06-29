@@ -16,6 +16,10 @@ public interface UserService {
 
     DataResult<User> getByEmail(String email);
 
+    Result changePassword(int id,String password,String newPassword);
+    Result changeEmail(User user);
+
+
     Result delete(User user);
 
 

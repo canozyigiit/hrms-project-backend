@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -44,8 +45,8 @@ public class JobExperience {
     @Past
     private LocalDate startedDate;
 
+    @Nullable
     @Column(name = "ended_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endedDate;
 
     @Column(name = "created_date")

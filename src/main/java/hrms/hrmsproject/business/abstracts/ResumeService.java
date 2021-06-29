@@ -12,6 +12,7 @@ import java.util.List;
 public interface ResumeService {
 
     Result add(ResumeAddDto resumeAddDto);
+    Result update(Resume resume);
 
     DataResult<List<ResumeDto>> getAll();
 

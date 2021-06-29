@@ -10,6 +10,8 @@ import java.util.List;
 public interface TechnologyService {
 
     Result add(TechnologyDto technologyDto);
+    Result update(int id, String description);
+    Result delete(int id);
 
     DataResult<List<TechnologyDto>> getAll();
 

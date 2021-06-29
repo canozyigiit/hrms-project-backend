@@ -6,4 +6,6 @@ public interface ConfirmEmployerService {
 
 
     Result confirmEmployer(String companyName, int systemPersonnelId);
+    Result confirmUpdateEmployer(String companyName, int systemPersonnelId);
+
 }

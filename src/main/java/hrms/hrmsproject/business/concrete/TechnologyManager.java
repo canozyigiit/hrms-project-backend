@@ -3,10 +3,7 @@ package hrms.hrmsproject.business.concrete;
 import hrms.hrmsproject.business.abstracts.TechnologyService;
 import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.dtoConverter.DtoConverterService;
-import hrms.hrmsproject.core.utilities.results.DataResult;
-import hrms.hrmsproject.core.utilities.results.Result;
-import hrms.hrmsproject.core.utilities.results.SuccessDataResult;
-import hrms.hrmsproject.core.utilities.results.SuccessResult;
+import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.TechnologyDao;
 import hrms.hrmsproject.entities.concretes.Technology;
 import hrms.hrmsproject.entities.dtos.technologyDtos.TechnologyDto;
@@ -21,20 +18,37 @@ public class TechnologyManager implements TechnologyService {
     private DtoConverterService dtoConverterService;
 
     @Autowired
-    public TechnologyManager(TechnologyDao technologyDao,DtoConverterService dtoConverterService) {
+    public TechnologyManager(TechnologyDao technologyDao, DtoConverterService dtoConverterService) {
         this.technologyDao = technologyDao;
         this.dtoConverterService = dtoConverterService;
     }
 
     @Override
     public Result add(TechnologyDto technologyDto) {
-        this.technologyDao.save((Technology) this.dtoConverterService.dtoClassConverter(technologyDto,Technology.class));
+        this.technologyDao.save((Technology) this.dtoConverterService.dtoClassConverter(technologyDto, Technology.class));
         return new SuccessResult(Messages.technologyAdded);
     }
 
     @Override
+    public Result update(int id, String description) {
+        Technology technology = this.technologyDao.findById(id).orElse(null);
+        if (description != null) {
+            technology.setDescription(description);
+            this.technologyDao.save(technology);
+            return new SuccessResult("Tecknoloji Açıklaması Güncellendi");
+        }
+        return new ErrorResult("Bilgiler Güncellenemedi");
+    }
+
+    @Override
+    public Result delete(int id) {
+        this.technologyDao.deleteById(id);
+        return new SuccessResult("Teknoloji silindi");
+    }
+
+    @Override
     public DataResult<List<TechnologyDto>> getAll() {
-        return new SuccessDataResult<List<TechnologyDto>>(this.dtoConverterService.dtoConverter(this.technologyDao.findAll(),TechnologyDto.class),Messages.technologyListed);
+        return new SuccessDataResult<List<TechnologyDto>>(this.dtoConverterService.dtoConverter(this.technologyDao.findAll(), TechnologyDto.class), Messages.technologyListed);
     }
 
     @Override

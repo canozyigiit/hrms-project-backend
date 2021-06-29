@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 @Table(name = "languages")
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicUpdate
 public class Language {
 
     @Id
@@ -24,8 +26,8 @@ public class Language {
     private int id;
 
     @ManyToOne()
-    @JsonIgnore
     @JoinColumn(name = "resume_id")
+    @JsonIgnore
     private Resume resume;
 
     @Column(name = "language")

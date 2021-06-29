@@ -27,14 +27,19 @@ public class JobAdvertsController {
     public ResponseEntity<?> addJobAdvert(@Valid @RequestBody JobAdvertAddDto jobAdvertAddDto) {
         return ResponseEntity.ok(this.jobAdvertService.add(jobAdvertAddDto));
     }
+
     @GetMapping("getbyid/{id}")
-    public ResponseEntity<?> getById(@PathVariable int id){
+    public ResponseEntity<?> getById(@PathVariable int id) {
         return ResponseEntity.ok(this.jobAdvertService.getById(id));
     }
 
     @GetMapping("getByisConfirmedTrue")
-    public DataResult<List<JobAdvertDto>> getByisConfirmedTrue(){
+    public DataResult<List<JobAdvertDto>> getByisConfirmedTrue() {
         return this.jobAdvertService.getByisConfirmedTrue();
+    }
+    @GetMapping("getByisConfirmedFalse")
+    public DataResult<List<JobAdvertDto>> getByisConfirmedFalse() {
+        return this.jobAdvertService.getByisConfirmedFalse();
     }
 
     @GetMapping("/getall")
@@ -53,11 +58,12 @@ public class JobAdvertsController {
     }
 
     @GetMapping("/getAllisOpenTrueAndCity_Id")
-    public  DataResult<List<JobAdvertDto>> getAllisOpenTrueAndCity_Id(int id){
-        return  this.jobAdvertService.getAllisOpenTrueAndCity_Id(id);
+    public DataResult<List<JobAdvertDto>> getAllisOpenTrueAndCity_Id(int id) {
+        return this.jobAdvertService.getAllisOpenTrueAndCity_Id(id);
     }
+
     @GetMapping("/getByisOpenTrueOrderByCreatedDateDesc")
-    public DataResult<List<JobAdvertDto>>getByisOpenTrueOrderByCreatedDateDesc(){
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueOrderByCreatedDateDesc() {
         return this.jobAdvertService.getByisOpenTrueOrderByCreatedDateDesc();
     }
 
@@ -66,11 +72,20 @@ public class JobAdvertsController {
         return this.jobAdvertService.getByisOpenTrueAndEmployer_Id(id);
     }
 
-//    @GetMapping("/getalldto")
-//    public DataResult<List<JobAdvertDto>> getAllDto(){
-//        return this.jobAdvertService.getAllDto();
-//    }
+    @GetMapping("/getAllByPage")
+    public DataResult<List<JobAdvertDto>> getAll(int pageNo) {
+        return this.jobAdvertService.getAll(pageNo);
+    }
 
+    @GetMapping("/getByisOpenTrueAndJobWorkSpaceType_Name")
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobWorkSpaceType_Name(String name){
+        return this.jobAdvertService.getByisOpenTrueAndJobType_Type(name);
+    }
+
+    @GetMapping("/getByisOpenTrueAndJobType_Type")
+    public DataResult<List<JobAdvertDto>> getByisOpenTrueAndJobType_Type(String type){
+        return this.jobAdvertService.getByisOpenTrueAndJobType_Type(type);
+    }
 
 
 }

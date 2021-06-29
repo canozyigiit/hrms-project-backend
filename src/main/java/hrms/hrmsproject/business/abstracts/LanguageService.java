@@ -14,4 +14,10 @@ public interface LanguageService {
     DataResult<List<LanguageDto>> getAll();
 
     DataResult<Language> getById(int id);
+
+    Result update(Language language);
+
+    Result delete (int id);
+
+    DataResult<List<LanguageDto>> getByResumeId(int id);
 }

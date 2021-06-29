@@ -28,4 +28,11 @@ public class UserValidateManager implements ValidateService {
         return new SuccessResult("Doğrulama kodu gönderildi");
     }
 
+    @Override
+    public Result verifyUser(User user) {
+        this.emailVerificationCodeService.createVerifyCode(user);
+        this.emailVerificationCodeService.sendMail(user.getEmail());
+        return new SuccessResult("Doğrulama kodu gönderildi");
+    }
+
 }

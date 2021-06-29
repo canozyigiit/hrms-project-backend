@@ -38,6 +38,7 @@ public class JobPosition {
     @JsonIgnore
     private boolean isActive = true;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "jobPosition")
     private List<JobAdvert> jobAdverts;
 

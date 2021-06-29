@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
+@DynamicUpdate
 public class User {
 
     @Id
@@ -29,6 +31,7 @@ public class User {
     @Email
     @NotNull
     @NotBlank
+    @Email
     private String email;
 
     @Column(name = "password")

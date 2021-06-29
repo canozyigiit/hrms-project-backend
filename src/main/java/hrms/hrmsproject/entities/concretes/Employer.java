@@ -10,11 +10,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -44,12 +47,25 @@ public class Employer extends User {
     @Pattern(regexp ="^(\\d{3}[- .]?){2}\\d{4}$",message = "Phone number is not valid.(Ör:***-***-**** )")
     private String phone;
 
+    @Nullable
+    @Column(name="team_size")
+    private int teamSize;
+
+    @Nullable
+    @Column(name="since")
+    private int since;
+
     @Column(name = "is_confirmed")
     @JsonIgnore
     private boolean isConfirmed = false;
 
+    @Column(name = "is_updated")
+    @JsonIgnore
+    private boolean isUpdated = false;
 
-
+    @Column(name = "updated_date")
+    @JsonIgnore
+    private LocalDate updatedDate ;
 
     @Column(name = "photo")
     @JsonProperty(access = Access.READ_ONLY)
@@ -58,6 +74,13 @@ public class Employer extends User {
     @JsonIgnore
     @OneToMany(mappedBy = "employer")
     private List<JobAdvert> jobAdverts;
+
+
+
+    @NotNull
+    @ManyToOne()
+    @JoinColumn(name = "city_id")
+    private City city;
 
 
 

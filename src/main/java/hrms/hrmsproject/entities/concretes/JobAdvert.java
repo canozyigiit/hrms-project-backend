@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -87,6 +88,11 @@ public class JobAdvert {
     @ManyToOne()
     @JoinColumn(name = "city_id")
     private City city;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "jobSeeker")
+    private List<JobSeekerFavoriteJobAdvert> jobSeekerFavoriteJobAdverts;
 
 
 }

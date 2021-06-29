@@ -16,17 +16,13 @@ public class SchoolDto {
     @NotNull
     private int resumeId;
     @NotBlank
-    @NotNull
     private String schoolName;
     @NotNull
     private int graduateId;
-    @NotBlank
-    @NotNull
     private String schoolDepartment;
     @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
-    @NotBlank
     private LocalDate startedDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endedDate;

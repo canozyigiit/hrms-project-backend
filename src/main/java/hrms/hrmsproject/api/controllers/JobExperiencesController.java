@@ -2,19 +2,15 @@ package hrms.hrmsproject.api.controllers;
 
 import hrms.hrmsproject.business.abstracts.JobExperienceService;
 import hrms.hrmsproject.core.utilities.results.DataResult;
-import hrms.hrmsproject.core.utilities.results.ErrorDataResult;
+import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.dtos.jobExperienceDto.JobExperienceDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("api/jobexperience")
@@ -40,6 +36,16 @@ public class JobExperiencesController {
     @GetMapping("/getByOrderByEndedDateDesc")
     public DataResult<List<JobExperienceDto>> findAllByResumeIdOrderByEndedDateDesc(@PathVariable int id){
         return this.jobExperienceService.findAllByResumeIdOrderByEndedDateDesc(id);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestParam int id,String companyName, LocalDate endedDate, String position, LocalDate startedDate){
+        return ResponseEntity.ok(this.jobExperienceService.update(id,companyName,endedDate,position,startedDate));
+    }
+
+    @PostMapping("/delete")
+    public Result delete(int id){
+        return this.jobExperienceService.delete(id);
     }
 
 

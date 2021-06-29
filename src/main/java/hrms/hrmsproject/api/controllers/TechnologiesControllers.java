@@ -2,6 +2,7 @@ package hrms.hrmsproject.api.controllers;
 
 import hrms.hrmsproject.business.abstracts.TechnologyService;
 import hrms.hrmsproject.core.utilities.results.DataResult;
+import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.dtos.technologyDtos.TechnologyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,14 @@ public class TechnologiesControllers {
         return this.technologyService.getAll();
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<?> update(@RequestParam int id,@RequestParam String description){
+      return   ResponseEntity.ok(this.technologyService.update(id,description));
+    }
 
+    @PostMapping("/delete")
+    public Result delete(int id){
+        return this.technologyService.delete(id);
+    }
 
 }
