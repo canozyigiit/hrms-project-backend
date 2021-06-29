@@ -1,7 +1,7 @@
 package hrms.hrmsproject.entities.concretes;
 
 
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import java.util.Map;
 @Table(name = "current_employer")
 @AllArgsConstructor
 @NoArgsConstructor
-@TypeDef(name = "json", typeClass = JsonBinaryType.class)
+@TypeDef(name = "json", typeClass = JsonType.class)
 
 public class CurrentEmployer {
 
