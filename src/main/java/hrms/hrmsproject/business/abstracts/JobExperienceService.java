@@ -5,13 +5,12 @@ import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.entities.concretes.JobExperience;
 import hrms.hrmsproject.entities.dtos.jobExperienceDto.JobExperienceDto;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface JobExperienceService {
 
     Result add(JobExperienceDto jobExperienceDto);
-    Result update(int id, String companyName, LocalDate endedDate,String position,LocalDate startedDate);
+    Result update(JobExperienceDto jobExperienceDto);
 
     DataResult<List<JobExperienceDto>> getAll();
 

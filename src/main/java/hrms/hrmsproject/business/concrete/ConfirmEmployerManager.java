@@ -5,8 +5,14 @@ import hrms.hrmsproject.business.abstracts.ConfirmEmployerService;
 import hrms.hrmsproject.core.utilities.results.ErrorResult;
 import hrms.hrmsproject.core.utilities.results.Result;
 import hrms.hrmsproject.core.utilities.results.SuccessResult;
-import hrms.hrmsproject.dataAccess.abstracts.*;
-import hrms.hrmsproject.entities.concretes.*;
+import hrms.hrmsproject.dataAccess.abstracts.ConfirmEmployerDao;
+import hrms.hrmsproject.dataAccess.abstracts.CurrentEmployerDao;
+import hrms.hrmsproject.dataAccess.abstracts.EmployerDao;
+import hrms.hrmsproject.dataAccess.abstracts.SystemPersonnelDao;
+import hrms.hrmsproject.entities.concretes.ConfirmEmployer;
+import hrms.hrmsproject.entities.concretes.CurrentEmployer;
+import hrms.hrmsproject.entities.concretes.Employer;
+import hrms.hrmsproject.entities.concretes.SystemPersonnel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,6 +101,10 @@ public class ConfirmEmployerManager implements ConfirmEmployerService {
 
     @Override
     public Result confirmUpdateEmployer(String companyName, int systemPersonnelId) {
+
+        if (!employerDao.existsByCompanyName(companyName)) {
+            return new ErrorResult("Şirket bulunamadı");
+        }
         Employer oldEmployer = this.employerDao.getByCompanyName(companyName);
         ConfirmEmployer confirmEmployer = new ConfirmEmployer();
         SystemPersonnel systemPersonnel = systemPersonnelDao.getOne(systemPersonnelId);

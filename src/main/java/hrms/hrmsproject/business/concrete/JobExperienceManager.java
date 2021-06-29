@@ -6,23 +6,26 @@ import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.dtoConverter.DtoConverterService;
 import hrms.hrmsproject.core.utilities.results.*;
 import hrms.hrmsproject.dataAccess.abstracts.JobExperienceDao;
+import hrms.hrmsproject.dataAccess.abstracts.ResumeDao;
 import hrms.hrmsproject.entities.concretes.JobExperience;
+import hrms.hrmsproject.entities.concretes.Resume;
 import hrms.hrmsproject.entities.dtos.jobExperienceDto.JobExperienceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class JobExperienceManager implements JobExperienceService {
     private JobExperienceDao jobExperienceDao;
     private DtoConverterService dtoConverterService;
+    private ResumeDao resumeDao;
 
     @Autowired
-    public JobExperienceManager(JobExperienceDao jobExperienceDao, DtoConverterService dtoConverterService) {
+    public JobExperienceManager(JobExperienceDao jobExperienceDao, ResumeDao resumeDao,DtoConverterService dtoConverterService) {
         this.jobExperienceDao = jobExperienceDao;
         this.dtoConverterService = dtoConverterService;
+        this.resumeDao = resumeDao;
     }
 
     @Override
@@ -36,27 +39,17 @@ public class JobExperienceManager implements JobExperienceService {
     }
 
     @Override
-    public Result update(int id, String companyName, LocalDate endedDate, String position, LocalDate startedDate) {
-        JobExperience jobExperience = this.jobExperienceDao.findById(id).orElse(null);
-        if (companyName != null) {
-            jobExperience.setCompanyName(companyName);
+    public Result update(JobExperienceDto jobExperienceDto) {
+        JobExperience jobExperience = this.jobExperienceDao.findById(jobExperienceDto.getId()).orElse(null);
+        Resume resume = this.resumeDao.findById(jobExperienceDto.getResumeId()).orElse(null);
+        if (jobExperience !=null){
+            jobExperience.setCompanyName(jobExperienceDto.getCompanyName());
+            jobExperience.setPosition(jobExperienceDto.getPosition());
+            jobExperience.setStartedDate(jobExperienceDto.getStartedDate());
+            jobExperience.setEndedDate(jobExperienceDto.getEndedDate());
+            jobExperience.setResume(resume);
             this.jobExperienceDao.save(jobExperience);
-            return new SuccessResult("Şirket Adı Güncellendi");
-        }
-        if (endedDate != null) {
-            jobExperience.setEndedDate(endedDate);
-            this.jobExperienceDao.save(jobExperience);
-            return new SuccessResult("Bitiş Tarihi Güncellendi");
-        }
-        if (position != null) {
-            jobExperience.setPosition(position);
-            this.jobExperienceDao.save(jobExperience);
-            return new SuccessResult("Pozisyon Güncellendi");
-        }
-        if (startedDate != null) {
-            jobExperience.setStartedDate(startedDate);
-            this.jobExperienceDao.save(jobExperience);
-            return new SuccessResult("Başlama Tarihi Güncellendi");
+            return new SuccessResult("Bilgiler güncellendi");
         }
         return new ErrorResult("Bilgiler Güncellenemedi");
 

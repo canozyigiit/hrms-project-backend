@@ -34,8 +34,8 @@ public class TechnologiesControllers {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestParam int id,@RequestParam String description){
-      return   ResponseEntity.ok(this.technologyService.update(id,description));
+    public ResponseEntity<?> update(@Valid @RequestBody TechnologyDto technologyDto){
+      return   ResponseEntity.ok(this.technologyService.update(technologyDto));
     }
 
     @PostMapping("/delete")

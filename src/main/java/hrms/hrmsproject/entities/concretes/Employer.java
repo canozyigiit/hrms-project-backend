@@ -62,7 +62,7 @@ public class Employer extends User {
     private boolean isUpdated = false;
 
     @Column(name = "updated_date")
-    private LocalDate updatedDate ;
+    private LocalDate updatedDate =LocalDate.now();
 
     @Column(name = "photo")
     @JsonProperty(access = Access.READ_ONLY)

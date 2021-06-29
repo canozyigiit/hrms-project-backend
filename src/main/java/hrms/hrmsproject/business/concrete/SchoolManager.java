@@ -1,33 +1,37 @@
 package hrms.hrmsproject.business.concrete;
 
-import hrms.hrmsproject.business.abstracts.GraduateService;
 import hrms.hrmsproject.business.abstracts.SchoolService;
 import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.business.BusinessRules;
 import hrms.hrmsproject.core.utilities.dtoConverter.DtoConverterService;
 import hrms.hrmsproject.core.utilities.results.*;
+import hrms.hrmsproject.dataAccess.abstracts.GraduateDao;
+import hrms.hrmsproject.dataAccess.abstracts.ResumeDao;
 import hrms.hrmsproject.dataAccess.abstracts.SchoolDao;
 import hrms.hrmsproject.entities.concretes.Graduate;
+import hrms.hrmsproject.entities.concretes.Resume;
 import hrms.hrmsproject.entities.concretes.School;
 import hrms.hrmsproject.entities.dtos.schoolDtos.SchoolDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class SchoolManager implements SchoolService {
     private SchoolDao schoolDao;
-    private GraduateService graduateService;
+    private GraduateDao graduateDao;
     private DtoConverterService dtoConverterService;
 
+    private ResumeDao resumeDao;
     @Autowired
     public SchoolManager(SchoolDao schoolDao,DtoConverterService dtoConverterService,
-                         GraduateService graduateService) {
+                         GraduateDao graduateDao,
+                         ResumeDao resumeDao) {
         this.schoolDao = schoolDao;
         this.dtoConverterService = dtoConverterService;
-        this.graduateService = graduateService;
+        this.resumeDao = resumeDao;
+        this.graduateDao = graduateDao;
     }
 
     @Override
@@ -52,37 +56,21 @@ public class SchoolManager implements SchoolService {
     }
 
     @Override
-    public Result update(int id,String schoolDepartment, String schoolName, LocalDate startedDate,
-                         LocalDate endedDate, Integer graduateId) {
-        School school = this.schoolDao.findById(id).orElse(null);
-
-        if (schoolName != null) {
-            school.setSchoolName(schoolName);
-            schoolDao.save( school);
-            return new SuccessResult("Okul Adı güncellendi ");
-        }
-        if (endedDate != null) {
-            school.setEndedDate(endedDate);
-            schoolDao.save(school);
-            return new SuccessResult("Bitiş Tarihi güncellendi ");
-        }
-        if (schoolDepartment != null) {
-            school.setSchoolDepartment(schoolDepartment);
-            schoolDao.save(school);
-            return new SuccessResult("Departman güncellendi ");
-        }
-        if (startedDate != null) {
-            school.setStartedDate(startedDate);
-            schoolDao.save(school);
-            return new SuccessResult("Başlama Tarihi güncellendi ");
-        }
-        if(graduateId != null){
-            int grdid = graduateId.intValue();
-            Graduate graduate = this.graduateService.getById(grdid).getData();
+    public Result update(SchoolDto schoolDto) {
+        School school = this.schoolDao.findById(schoolDto.getId()).orElse(null);
+        Graduate graduate = this.graduateDao.findById(schoolDto.getId()).orElse(null);
+        Resume resume = this.resumeDao.findById(schoolDto.getResumeId()).orElse(null);
+        if (school !=null){
+            school.setSchoolName(schoolDto.getSchoolName());
+            school.setResume(resume);
+            school.setSchoolDepartment(schoolDto.getSchoolDepartment());
             school.setGraduate(graduate);
+            school.setStartedDate(schoolDto.getStartedDate());
+            school.setEndedDate(schoolDto.getEndedDate());
             schoolDao.save(school);
-            return new SuccessResult("Derece güncellendi ");
+            return new SuccessResult("Bilgiler Güncellendi");
         }
+
         return new ErrorResult("Bilgiler Güncellenemedi");
     }
 

@@ -4,7 +4,9 @@ import hrms.hrmsproject.business.abstracts.TechnologyService;
 import hrms.hrmsproject.business.constants.Messages;
 import hrms.hrmsproject.core.utilities.dtoConverter.DtoConverterService;
 import hrms.hrmsproject.core.utilities.results.*;
+import hrms.hrmsproject.dataAccess.abstracts.ResumeDao;
 import hrms.hrmsproject.dataAccess.abstracts.TechnologyDao;
+import hrms.hrmsproject.entities.concretes.Resume;
 import hrms.hrmsproject.entities.concretes.Technology;
 import hrms.hrmsproject.entities.dtos.technologyDtos.TechnologyDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,13 @@ import java.util.List;
 public class TechnologyManager implements TechnologyService {
     private TechnologyDao technologyDao;
     private DtoConverterService dtoConverterService;
+    private ResumeDao resumeDao;
 
     @Autowired
-    public TechnologyManager(TechnologyDao technologyDao, DtoConverterService dtoConverterService) {
+    public TechnologyManager(TechnologyDao technologyDao, ResumeDao resumeDao, DtoConverterService dtoConverterService) {
         this.technologyDao = technologyDao;
         this.dtoConverterService = dtoConverterService;
+        this.resumeDao = resumeDao;
     }
 
     @Override
@@ -30,12 +34,15 @@ public class TechnologyManager implements TechnologyService {
     }
 
     @Override
-    public Result update(int id, String description) {
-        Technology technology = this.technologyDao.findById(id).orElse(null);
-        if (description != null) {
-            technology.setDescription(description);
+    public Result update(TechnologyDto technologyDto) {
+        Technology technology = this.technologyDao.findById(technologyDto.getId()).orElse(null);
+        Resume resume = this.resumeDao.findById(technologyDto.getResumeId()).orElse(null);
+
+        if (technology != null) {
+            technology.setDescription(technologyDto.getDescription());
+            technology.setResume(resume);
             this.technologyDao.save(technology);
-            return new SuccessResult("Tecknoloji Açıklaması Güncellendi");
+            return new SuccessResult("Tecknoloji Güncellendi");
         }
         return new ErrorResult("Bilgiler Güncellenemedi");
     }

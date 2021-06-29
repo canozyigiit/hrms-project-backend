@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -39,8 +38,8 @@ public class JobExperiencesController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestParam int id,String companyName, LocalDate endedDate, String position, LocalDate startedDate){
-        return ResponseEntity.ok(this.jobExperienceService.update(id,companyName,endedDate,position,startedDate));
+    public ResponseEntity<?> update(@Valid @RequestBody JobExperienceDto jobExperienceDto){
+        return ResponseEntity.ok(this.jobExperienceService.update(jobExperienceDto));
     }
 
     @PostMapping("/delete")

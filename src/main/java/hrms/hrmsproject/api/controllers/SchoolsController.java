@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,8 +33,8 @@ public class SchoolsController {
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> update( @RequestParam int  id, String schoolDepartment, String schoolName, LocalDate startedDate, LocalDate endedDate, Integer graduateId){
-        return ResponseEntity.ok(this.schoolService.update(id,schoolDepartment,schoolName,startedDate,endedDate,graduateId));
+    public ResponseEntity<?> update( @Valid @RequestBody SchoolDto schoolDto){
+        return ResponseEntity.ok(this.schoolService.update(schoolDto));
     }
 
 }
